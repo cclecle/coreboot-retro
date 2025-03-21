@@ -1,0 +1,7 @@
+Category: desktop
+Board URL: https://theretroweb.com/motherboards/s/ibm-pc300-type-6263,-6265,-6275,-6285
+ROM package: PLCC32
+ROM protocol: Parallel
+ROM socketed: y
+Flashrom support: y
+Release year: 1998

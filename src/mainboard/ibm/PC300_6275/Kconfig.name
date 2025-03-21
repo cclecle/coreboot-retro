@@ -1,0 +1,3 @@
+config BOARD_IBM_PC300_6275
+	bool "IBM 300GL Type 6275"
+
