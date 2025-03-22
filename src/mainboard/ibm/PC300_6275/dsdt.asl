@@ -1,13 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 
 #include <southbridge/intel/i82371eb/i82371eb.h>
-
-#define SUPERIO_PNP_BASE 0x3F0
-#define SUPERIO_SHOW_UARTA
-#define SUPERIO_SHOW_UARTB
-#define SUPERIO_SHOW_FDC
-#define SUPERIO_SHOW_LPT
-
 #include <acpi/acpi.h>
 
 DefinitionBlock (
@@ -142,9 +135,7 @@ DefinitionBlock (
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
-
-			//#include <mainboard/shuttle/ab61/variants/ab61/i82371eb.asl>
-			//#include <superio/winbond/w83977tf/acpi/superio.asl>
+			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
 		}
 	}
 
