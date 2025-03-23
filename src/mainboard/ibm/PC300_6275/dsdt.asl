@@ -135,7 +135,7 @@ DefinitionBlock (
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
-			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
+			#include <southbridge/intel/i82371eb/acpi/i82371eb.asl>
 		}
 	}
 

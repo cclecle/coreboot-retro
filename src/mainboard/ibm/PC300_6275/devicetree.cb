@@ -4,27 +4,32 @@ chip northbridge/intel/i440bx		# Northbridge
     device pci 0.0 on end		# Host bridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
-      device pci 7.0 on			# ISA bridge
+      device pci 2.0 on			# ISA bridge
+        register "gpo" = "0x65ffbfff"
+	register "gpo22_enable" = "1"
+	register "gpo24_enable" = "1"
+	register "gpo25_enable" = "1"
+	register "gpo26_enable" = "1"
 	chip superio/smsc/smscsuperio
-		device pnp 2e.0 off	# Floppy
+		device pnp 3f0.0 on	# Floppy
 			io 0x60 = 0x3f0
 			irq 0x70 = 6
 			drq 0x74 = 2
 		end
-		device pnp 2e.3 on		# Parallel Port
+		device pnp 3f0.3 on		# Parallel Port
 			io 0x60 = 0x378
 			irq 0x70 = 7
 			drq 0x74 = 3
 		end
-		device pnp 2e.4 on		# COM1
+		device pnp 3f0.4 on		# COM1
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
-		device pnp 2e.5 on		# Com2
+		device pnp 3f0.5 on		# Com2
 			io 0x60 = 0x2f8
 			irq 0x70 = 3
 		end
-		device pnp 2e.7 on		# Keyboard
+		device pnp 3f0.7 on		# Keyboard
 			#io 0x60 = 0x60 # Can't read this back
 			#io 0x62 = 0x64 # Can't read this back
 			irq 0x70 = 1
@@ -32,9 +37,9 @@ chip northbridge/intel/i440bx		# Northbridge
 		end
 	end # smscsuperio      
       end
-      device pci 7.1 on	end		# IDE
-      device pci 7.2 on	end		# USB
-      device pci 7.3 on end		# ACPI
+      device pci 2.1 on	end		# IDE
+      device pci 2.2 on	end		# USB
+      device pci 2.3 on end		# ACPI
       register "ide0_enable" = "true"
       register "ide1_enable" = "true"
       register "ide_legacy_enable" = "true"
