@@ -97,30 +97,15 @@ DefinitionBlock (
 
 			/* PCI Routing Table */
 			Name (_PRT, Package () {
-				Package (0x04) { 0x0009FFFF, 0, LNKA, 0 },
-				Package (0x04) { 0x0009FFFF, 1, LNKB, 0 },
-				Package (0x04) { 0x0009FFFF, 2, LNKC, 0 },
-				Package (0x04) { 0x0009FFFF, 3, LNKD, 0 },
-
-				Package (0x04) { 0x000AFFFF, 0, LNKB, 0 },
-				Package (0x04) { 0x000AFFFF, 1, LNKC, 0 },
-				Package (0x04) { 0x000AFFFF, 2, LNKD, 0 },
-				Package (0x04) { 0x000AFFFF, 3, LNKA, 0 },
-
-				Package (0x04) { 0x000BFFFF, 0, LNKC, 0 },
-				Package (0x04) { 0x000BFFFF, 1, LNKD, 0 },
-				Package (0x04) { 0x000BFFFF, 2, LNKA, 0 },
-				Package (0x04) { 0x000BFFFF, 3, LNKB, 0 },
-
-				Package (0x04) { 0x0007FFFF, 0, LNKA, 0 },
-				Package (0x04) { 0x0007FFFF, 1, LNKB, 0 },
-				Package (0x04) { 0x0007FFFF, 2, LNKC, 0 },
-				Package (0x04) { 0x0007FFFF, 3, LNKD, 0 },
-
 				Package (0x04) { 0x0001FFFF, 0, LNKA, 0 },
 				Package (0x04) { 0x0001FFFF, 1, LNKB, 0 },
 				Package (0x04) { 0x0001FFFF, 2, LNKC, 0 },
-				Package (0x04) { 0x0001FFFF, 3, LNKD, 0 }
+				Package (0x04) { 0x0001FFFF, 3, LNKD, 0 },
+
+				Package (0x04) { 0x0004FFFF, 0, LNKA, 0 },
+				Package (0x04) { 0x0004FFFF, 1, LNKB, 0 },
+				Package (0x04) { 0x0004FFFF, 2, LNKC, 0 },
+				Package (0x04) { 0x0004FFFF, 3, LNKD, 0 },
 
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
