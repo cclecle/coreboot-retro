@@ -5,11 +5,19 @@ chip northbridge/intel/i440bx		# Northbridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
       device pci 2.0 on			# ISA bridge
-        register "gpo" = "0x65ffbfff"
-	register "gpo22_enable" = "1"
+	register "pnp_decode_enable" = "1"
+	register "positive_decode_enable" = "1"
+	register "gpi7_enable" = "1"
+	register "gpo17_enable" = "1"
+	register "gpo18_enable" = "1"
+	register "gpo19_enable" = "1"
+	register "gpo20_enable" = "1"
+	register "gpo21_enable" = "1"
+	register "gpo2223_enable" = "1"
 	register "gpo24_enable" = "1"
 	register "gpo25_enable" = "1"
 	register "gpo26_enable" = "1"
+        register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
 		device pnp 3f0.0 on	# Floppy
 			io 0x60 = 0x3f0
@@ -35,7 +43,7 @@ chip northbridge/intel/i440bx		# Northbridge
 			irq 0x70 = 1
 			irq 0x72 = 12
 		end
-	end # smscsuperio      
+	end # smscsuperio
       end
       device pci 2.1 on	end		# IDE
       device pci 2.2 on	end		# USB

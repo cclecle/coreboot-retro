@@ -112,16 +112,6 @@ DefinitionBlock (
 				Package (0x04) { 0x000BFFFF, 2, LNKA, 0 },
 				Package (0x04) { 0x000BFFFF, 3, LNKB, 0 },
 
-				Package (0x04) { 0x000CFFFF, 0, LNKD, 0 },
-				Package (0x04) { 0x000CFFFF, 1, LNKA, 0 },
-				Package (0x04) { 0x000CFFFF, 2, LNKB, 0 },
-				Package (0x04) { 0x000CFFFF, 3, LNKC, 0 },
-
-				Package (0x04) { 0x000DFFFF, 0, LNKC, 0 },
-				Package (0x04) { 0x000DFFFF, 1, LNKD, 0 },
-				Package (0x04) { 0x000DFFFF, 2, LNKA, 0 },
-				Package (0x04) { 0x000DFFFF, 3, LNKB, 0 },
-
 				Package (0x04) { 0x0007FFFF, 0, LNKA, 0 },
 				Package (0x04) { 0x0007FFFF, 1, LNKB, 0 },
 				Package (0x04) { 0x0007FFFF, 2, LNKC, 0 },

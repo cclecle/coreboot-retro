@@ -1,10 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0-only */
 
 #include <device/pci_ops.h>
-#include <device/pci.h>
-#include <device/pci_def.h>
-#include <device/pci_ids.h>
-#include <console/console.h>
 #include <southbridge/intel/i82371eb/i82371eb.h>
 
 /**

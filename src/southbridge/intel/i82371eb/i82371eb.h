@@ -22,12 +22,23 @@ void i82371eb_early_init(void);
 
 #define XBCS		0x4e	/* X-Bus chip select register */
 #define GENCFG		0xb0	/* General configuration register */
-#define REQAGNTA	(1<<8)	/* Select REQA/GNTA or GPI2/GPO9 functionality */
-#define	GPI7SERIRQ	(1<<16) /* Select GPI7 input or Serial IRQ function*/
-#define   GPO2223	(1<<28) /* GPO22/23 */
-#define   GPO24     (1<<29) /* RTCCS/GPO24 */
-#define   GPO25     (1<<30) /* RTCALE/GPO25 */
-#define   GPO26     (1<<31) /* KBCCS/GPO26 */
+#define   ISA			(1<<0)  /* Select ISA */
+#define   POSITIVE_DECODE 	(1<<1)  /* Positive or Substractive Decode */
+#define   PNP_DECODE 		(1<<6)  /* Enable PnP address positive decode */
+#define   REQAGNTA		(1<<8)	/* Select REQA/GNTA or GPI2/GPO9 functionality */
+#define   REQBGNTB		(1<<9)	/* Select REQB/GNTB or GPI3/GPO10 functionality */
+#define	  REQCGNTC		(1<<10)	/* Select REQC/GNTC or GPI4/GPO11 functionality */
+#define	  GPI7SERIRQ		(1<<16) /* Select GPI7 input or Serial IRQ function*/
+#define   GPO1516   		(1<<17) /* SUSB/SUSC or GPO1516 functionality*/
+#define   GPO17   		(1<<18) /* CPU_STP or GPO17 functionality*/
+#define   GPO18     		(1<<19) /* PCI_STP or GPO18 functionality*/
+#define   GPO19     		(1<<20) /* ZZ or GPO19 functionality*/
+#define   GPO20     		(1<<21) /* SUS_STAT1 or GPO20 functionality*/
+#define   GPO21     		(1<<22) /* SUS_STAT2 or GPO21 functionality*/
+#define   GPO2223		(1<<28) /* GPO22/23 functionality*/
+#define   GPO24     		(1<<29) /* RTCCS or GPO24 functionality*/
+#define   GPO25     		(1<<30) /* RTCALE or GPO25 functionality*/
+#define   GPO26     		(1<<31) /* KBCCS or GPO26 */
 #define RTCCFG		0xcb	/* Real time clock configuration register */
 #define   RTC_POS_DECODE (1<<5)
 #define   UPPER_RAM_EN	(1<<2)
@@ -120,6 +131,5 @@ void i82371eb_early_init(void);
 #define PSDE1			(1 << 1)  /* Primary Drive 1 UDMA/33 */
 #define SSDE0			(1 << 2)  /* Secondary Drive 0 UDMA/33 */
 #define SSDE1			(1 << 3)  /* Secondary Drive 1 UDMA/33 */
-#define ISA			(1 << 0)  /* Select ISA */
 
 #endif /* SOUTHBRIDGE_INTEL_I82371EB_I82371EB_H */

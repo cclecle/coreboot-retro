@@ -10,7 +10,7 @@
  */
 static void mainboard_init(void *chip_info)
 {
-	
+
 }
 
 struct chip_operations mainboard_ops = {

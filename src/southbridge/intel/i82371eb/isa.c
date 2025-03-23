@@ -34,22 +34,27 @@ static void isa_init(struct device *dev)
 	 * bus, which is a subset of ISA. We select the full ISA bus here.
 	 */
 	reg32 = pci_read_config32(dev, GENCFG);
-	reg32 |= ISA;	/* Select ISA, not EIO. */
+	reg32 = ONOFF(1, 				reg32, ISA);		/* Select ISA */
+	reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
+	reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
+	reg32 = ONOFF(sb->gpi7_enable, 			reg32, GPI7SERIRQ);	/* Select GPI7 input or Serial IRQ function*/
+	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* SUSB/SUSC or GPO1516 functionality*/
+	reg32 = ONOFF(sb->gpo17_enable, 		reg32, GPO17);		/* SUSB/SUSC or GPO1516 functionality*/
+	reg32 = ONOFF(sb->gpo18_enable, 		reg32, GPO18);		/* PCI_STP or GPO18 functionality*/
+	reg32 = ONOFF(sb->gpo19_enable, 		reg32, GPO19);		/* ZZ or GPO19 functionality*/
+	reg32 = ONOFF(sb->gpo20_enable, 		reg32, GPO20);		/* SUS_STAT1 or GPO20 functionality*/
+	reg32 = ONOFF(sb->gpo21_enable, 		reg32, GPO21);		/* SUS_STAT2 or GPO21 functionality*/
+	reg32 = ONOFF(sb->gpo2223_enable, 		reg32, GPO2223);	/* GPO22/23 functionality*/
+	reg32 = ONOFF(sb->gpo24_enable, 		reg32, GPO24);		/* RTCCS or GPO24 functionality*/
+	reg32 = ONOFF(sb->gpo25_enable, 		reg32, GPO25);		/* RTCALE or GPO25 functionality*/
+	reg32 = ONOFF(sb->gpo26_enable, 		reg32, GPO26);		/* KBCCS or GPO26 */
 
-	/* Set the Serial IRQ function/GPI7 function if configured*/
-	reg32 = ONOFF(sb->gpi7_enable, reg32, GPI7SERIRQ);
-
-	/* Enable REQA/GNTA signaling instead of GPI2/GPO7 if configured*/
+	/* Enable REQ/GNT [A..C] signaling instead of GPI[2..4]/GPO[9..11] if configured*/
 	reg32 = ONOFF(sb->reqa_gnta_enable, reg32, REQAGNTA);
+	reg32 = ONOFF(sb->reqb_gntb_enable, reg32, REQBGNTB);
+	reg32 = ONOFF(sb->reqc_gntc_enable, reg32, REQCGNTC);
 
-	/* Some boards use GPO22/23. Select it if configured. */
-	reg32 = ONOFF(sb->gpo22_enable, reg32, GPO2223);
 
-	/* Set GPO24, GPO25, GPO26 based on enable variables */
-    reg32 = ONOFF(sb->gpo24_enable, reg32, GPO24);
-    reg32 = ONOFF(sb->gpo25_enable, reg32, GPO25);
-    reg32 = ONOFF(sb->gpo26_enable, reg32, GPO26);
-	
 	pci_write_config32(dev, GENCFG, reg32);
 
 	/* Initialize ISA DMA. */
