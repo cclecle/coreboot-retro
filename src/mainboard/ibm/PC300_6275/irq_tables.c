@@ -75,13 +75,13 @@ slot_num = 0;
 
 	/* pci slot 1 */
 	write_pirq_info(pirq_info, 0, PCI_DEVFN(0x0a, 0),
-			0x63, 0xdeb8, 0x60, 0xdeb8, 0x61, 0xdeb8, 0x62, 0xdeb8, 1, 0);
+			0x61, 0xdeb8, 0x62, 0xdeb8, 0x63, 0xdeb8, 0x60, 0xdeb8, 2, 0);
 	pirq_info++;
 	slot_num++;
 
 	/* pci slot 2 */
 	write_pirq_info(pirq_info, 0, PCI_DEVFN(0x0c, 0),
-			0x60, 0xdeb8, 0x61, 0xdeb8, 0x62, 0xdeb8, 0x63, 0xdeb8, 2, 0);
+			0x63, 0xdeb8, 0x60, 0xdeb8, 0x61, 0xdeb8, 0x62, 0xdeb8, 4, 0);
 	pirq_info++;
 	slot_num++;
 
@@ -91,20 +91,20 @@ slot_num = 0;
 	pirq_info++;
 	slot_num++;
 
-pirq->size = 32 + 16 * slot_num;
+	pirq->size = 32 + 16 * slot_num;
 
-{
-const u8 *const v = (u8 *)(pirq);
-for (i = 0; i < pirq->size; i++)
-    sum += v[i];
-}
+	{
+	const u8 *const v = (u8 *)(pirq);
+	for (i = 0; i < pirq->size; i++)
+	sum += v[i];
+	}
 
-sum = pirq->checksum - sum;
+	sum = pirq->checksum - sum;
 
-if (sum != pirq->checksum)
-pirq->checksum = sum;
+	if (sum != pirq->checksum)
+	pirq->checksum = sum;
 
-printk(BIOS_INFO, "%s DONE.\n", __func__);
+	printk(BIOS_INFO, "%s DONE.\n", __func__);
 
-return (unsigned long)pirq_info;
+	return (unsigned long)pirq_info;
 }

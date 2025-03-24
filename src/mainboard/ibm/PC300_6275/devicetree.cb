@@ -1,6 +1,6 @@
 chip northbridge/intel/i440bx		# Northbridge
   device cpu_cluster 0 on end		# APIC cluster
-  device domain 0 on		# PCI domain
+  device domain 0 on			# PCI domain
     device pci 0.0 on end		# Host bridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
@@ -19,29 +19,31 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "gpo26_enable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
-		device pnp 3f0.0 on	# Floppy
+		device pnp 370.0 off	# Floppy
 			io 0x60 = 0x3f0
 			irq 0x70 = 6
 			drq 0x74 = 2
 		end
-		device pnp 3f0.3 on		# Parallel Port
+		device pnp 370.3 off		# Parallel Port
 			io 0x60 = 0x378
 			irq 0x70 = 7
 			drq 0x74 = 3
 		end
-		device pnp 3f0.4 on		# COM1
+		device pnp 370.4 on		# COM1
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
-		device pnp 3f0.5 on		# Com2
+		device pnp 370.5 off		# Com2
 			io 0x60 = 0x2f8
 			irq 0x70 = 3
 		end
-		device pnp 3f0.7 on		# Keyboard
+		device pnp 370.7 on		# Keyboard
 			#io 0x60 = 0x60 # Can't read this back
 			#io 0x62 = 0x64 # Can't read this back
 			irq 0x70 = 1
 			irq 0x72 = 12
+		end
+		device pnp 370.8 on		# AUX
 		end
 	end # smscsuperio
       end
