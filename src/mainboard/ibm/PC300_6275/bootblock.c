@@ -4,7 +4,7 @@
 #include <superio/smsc/smscsuperio/smscsuperio.h>
 
 
-#define SERIAL_DEV PNP_DEV(0x3f0, SMSCSUPERIO_SP1)
+#define SERIAL_DEV PNP_DEV(0x370, SMSCSUPERIO_SP1)
 
 void bootblock_mainboard_early_init(void)
 {
