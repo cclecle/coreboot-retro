@@ -3,7 +3,7 @@
 #include "southbridge/intel/i82371eb/i82371eb.h"
 
 /* Declares assorted devices that fall under this southbridge. */
-Device (PX70)
+Device (PX40)
 {
 	Name(_ADR, 0x00070000)
 	OperationRegion (PIRQ, PCI_Config, 0x60, 0x04)
@@ -118,7 +118,7 @@ Device (PX70)
 		})
 	}
 }
-Device (PX73)
+Device (PX43)
 {
 	Name (_ADR, 0x00070003)
 
