@@ -35,11 +35,11 @@ static void isa_init(struct device *dev)
 	 */
 	reg32 = pci_read_config32(dev, GENCFG);
 	reg32 = ONOFF(1, 				reg32, ISA);		/* Select ISA */
-	reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
-	reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
-	reg32 = ONOFF(sb->gpi7_enable, 			reg32, GPI7SERIRQ);	/* Select GPI7 input or Serial IRQ function*/
-	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* SUSB/SUSC or GPO1516 functionality*/
-	reg32 = ONOFF(sb->gpo17_enable, 		reg32, GPO17);		/* SUSB/SUSC or GPO1516 functionality*/
+	//reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
+	//reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
+	reg32 = ONOFF(sb->gpi7_enable, 			reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
+	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* GPO1516 or SUSB/SUSC functionality*/
+	reg32 = ONOFF(sb->gpo17_enable, 		reg32, GPO17);		/* GPO17 or CPU_STP functionality*/
 	reg32 = ONOFF(sb->gpo18_enable, 		reg32, GPO18);		/* PCI_STP or GPO18 functionality*/
 	reg32 = ONOFF(sb->gpo19_enable, 		reg32, GPO19);		/* ZZ or GPO19 functionality*/
 	reg32 = ONOFF(sb->gpo20_enable, 		reg32, GPO20);		/* SUS_STAT1 or GPO20 functionality*/
