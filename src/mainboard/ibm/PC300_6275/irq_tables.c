@@ -48,7 +48,7 @@ pirq->version = PIRQ_VERSION;
 pirq->rtr_bus = 0;
 pirq->rtr_devfn = PCI_DEVFN(0x02, 0);
 
-pirq->exclusive_irqs = 0x0000;
+pirq->exclusive_irqs = 0x0c80;
 
 pirq->rtr_vendor = 0x8086;
 pirq->rtr_device = 0x122e;
@@ -60,17 +60,18 @@ memset(pirq->rfu, 0, sizeof(pirq->rfu));
 pirq_info = (void *)(&pirq->slots);
 slot_num = 0;
 
-/* 82371AB/EB/MB PIIX4/E/M EIDE Controller */
-write_pirq_info(pirq_info, 0, PCI_DEVFN(0x02, 1),
-    0x60, 0xdeb8, 0x61, 0xdeb8, 0x62, 0xdeb8, 0x63, 0xdeb8, 0, 0);
-pirq_info++;
-slot_num++;
 
-/* 82443BX/ZX 440BX/ZX PCI to AGP Bridge  */
-write_pirq_info(pirq_info, 0, PCI_DEVFN(0x01, 0),
-    0x60, 0xdeb8, 0x61, 0xdeb8, 0x62, 0xdeb8, 0x63, 0xdeb8, 0, 0);
-pirq_info++;
-slot_num++;
+	/* 82443LX/EX 440LX/EX PCI to AGP Bridge  */
+	write_pirq_info(pirq_info, 0, PCI_DEVFN(0x01, 0),
+			0x60, 0xdef8, 0x61, 0xdef8, 0x62, 0xdef8, 0x63, 0xdef8, 0, 0);
+	pirq_info++;
+	slot_num++;
+
+	/* 82371AB/EB/MB PIIX4/E/M EIDE Controller */
+	write_pirq_info(pirq_info, 0, PCI_DEVFN(0x02, 1),
+			0x60, 0xdef8, 0x61, 0xdef8, 0x62, 0xdef8, 0x63, 0xdef8, 0, 0);
+	pirq_info++;
+	slot_num++;
 
 pirq->size = 32 + 16 * slot_num;
 
