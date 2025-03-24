@@ -1,6 +1,10 @@
 /* SPDX-License-Identifier: GPL-2.0-or-later */
 
+
 #include <arch/pirq_routing.h>
+#include <console/console.h>
+#include <device/pci_def.h>
+#include <string.h>
 
 
 static void write_pirq_info(struct irq_info *pirq_info, u8 bus, u8 devfn,
