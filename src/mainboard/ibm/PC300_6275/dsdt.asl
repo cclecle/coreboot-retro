@@ -34,9 +34,9 @@ DefinitionBlock (
 	 * 6: reserved
 	 * 7: reserved
 	 */
-	Name (\_S0, Package () { 0x05, 0x05, 0x00,0})
-	Name (\_S1, Package () { 0x03, 3, 0x00,0})
-	Name (\_S5, Package () { 0x00, 0x00, 0x00,0})
+	Name (\_S0, Package () { 0x05, 0x05, 0x00, 0x00})
+	Name (\_S1, Package () { 0x03, 0x03, 0x00, 0x00})
+	Name (\_S5, Package () { 0x00, 0x00, 0x00, 0x00})
 
 	OperationRegion (GPOB, SystemIO, DEFAULT_PMBASE+DEVCTL, 0x10)
 	Field (GPOB, ByteAcc, NoLock, Preserve)
