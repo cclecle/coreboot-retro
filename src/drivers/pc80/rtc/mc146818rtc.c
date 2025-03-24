@@ -94,17 +94,26 @@ static bool __cmos_init(bool invalid)
 	/* See if there has been a CMOS power problem. */
 	cmos_invalid = cmos_error();
 
+	printk(BIOS_DEBUG, "?? 1\n");
 	if (CONFIG(USE_OPTION_TABLE)) {
+		printk(BIOS_DEBUG, "?? 2\n");
 		/* See if there is a CMOS checksum error */
 		checksum_invalid = !cmos_checksum_valid(PC_CKS_RANGE_START,
 						PC_CKS_RANGE_END, PC_CKS_LOC);
 	}
+	printk(BIOS_DEBUG, "?? 3\n");
 
 	if (cmos_invalid || invalid)
+	{
+		printk(BIOS_DEBUG, "?? 4\n");
 		cmos_disable_rtc();
+	}
 
+	printk(BIOS_DEBUG, "?? 5\n");
 	if (invalid || cmos_invalid || checksum_invalid) {
+		printk(BIOS_DEBUG, "?? 6\n");
 		if (!CONFIG(USE_OPTION_TABLE)) {
+			printk(BIOS_DEBUG, "?? 7\n");
 			cmos_write(0, 0x01);
 			cmos_write(0, 0x03);
 			cmos_write(0, 0x05);
@@ -112,9 +121,13 @@ static bool __cmos_init(bool invalid)
 				cmos_write(0, i);
 			cleared_cmos = true;
 		}
+		printk(BIOS_DEBUG, "?? 8\n");
 
 		if (cmos_invalid || invalid)
+		{
+			printk(BIOS_DEBUG, "?? 9\n");
 			cmos_reset_date();
+		}
 
 		printk(BIOS_WARNING, "RTC:%s%s%s%s\n",
 			invalid ? " Clear requested":"",
@@ -122,24 +135,33 @@ static bool __cmos_init(bool invalid)
 			checksum_invalid ? " Checksum invalid":"",
 			cleared_cmos ? " zeroing cmos":"");
 	}
+	printk(BIOS_DEBUG, "?? 10\n");
 
 	/* Setup the real time clock */
 	cmos_write(RTC_CONTROL_DEFAULT, RTC_CONTROL);
+	printk(BIOS_DEBUG, "?? 11\n");
 	/* Setup the frequency it operates at */
 	cmos_write(RTC_FREQ_SELECT_DEFAULT, RTC_FREQ_SELECT);
+	printk(BIOS_DEBUG, "?? 12\n");
 	/* Ensure all reserved bits are 0 in register D */
 	cmos_write(RTC_VRT, RTC_VALID);
+	printk(BIOS_DEBUG, "?? 13\n");
 
 	if (CONFIG(USE_OPTION_TABLE)) {
+		printk(BIOS_DEBUG, "?? 14\n");
 		/* See if there is a LB CMOS checksum error */
 		checksum_invalid = !cmos_lb_cks_valid();
+		printk(BIOS_DEBUG, "?? 15\n");
 		if (checksum_invalid)
 			printk(BIOS_DEBUG, "RTC: coreboot checksum invalid\n");
 
+		printk(BIOS_DEBUG, "?? 16\n");
 		/* Make certain we have a valid checksum */
 		cmos_set_checksum(PC_CKS_RANGE_START, PC_CKS_RANGE_END, PC_CKS_LOC);
+		printk(BIOS_DEBUG, "?? 17\n");
 	}
 
+	printk(BIOS_DEBUG, "?? 18\n");
 	/* Clear any pending interrupts */
 	cmos_read(RTC_INTR_FLAGS);
 
