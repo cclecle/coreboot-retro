@@ -120,7 +120,7 @@ DefinitionBlock (
 				Package (0x04) { 0x000EFFFF, 0, LNKB, 0 },
 				Package (0x04) { 0x000EFFFF, 1, LNKC, 0 },
 				Package (0x04) { 0x000EFFFF, 2, LNKD, 0 },
-				Package (0x04) { 0x000EFFFF, 3, LNKE, 0 },
+				Package (0x04) { 0x000EFFFF, 3, LNKA, 0 },
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
