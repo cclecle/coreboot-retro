@@ -19,12 +19,12 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "gpo26_enable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
-		device pnp 370.0 off	# Floppy
+		device pnp 370.0 on	# Floppy
 			io 0x60 = 0x3f0
 			irq 0x70 = 6
 			drq 0x74 = 2
 		end
-		device pnp 370.3 off		# Parallel Port
+		device pnp 370.3 on		# Parallel Port
 			io 0x60 = 0x378
 			irq 0x70 = 7
 			drq 0x74 = 3
@@ -33,13 +33,13 @@ chip northbridge/intel/i440bx		# Northbridge
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
-		device pnp 370.5 off		# Com2
+		device pnp 370.5 on		# Com2
 			io 0x60 = 0x2f8
 			irq 0x70 = 3
 		end
 		device pnp 370.7 on		# Keyboard
-			#io 0x60 = 0x60 # Can't read this back
-			#io 0x62 = 0x64 # Can't read this back
+			io 0x60 = 0x60
+			io 0x62 = 0x64
 			irq 0x70 = 1
 			irq 0x72 = 12
 		end
