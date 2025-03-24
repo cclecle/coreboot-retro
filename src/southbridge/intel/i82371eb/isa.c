@@ -22,8 +22,6 @@ static void isa_init(struct device *dev)
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
 
 	printk(BIOS_DEBUG, "!!! 1\n");
-	/* Initialize the real time clock (RTC). */
-	cmos_init(0);
 
 	printk(BIOS_DEBUG, "!!! 2\n");
 	/*
@@ -76,6 +74,9 @@ static void isa_init(struct device *dev)
 
 	pci_write_config32(dev, GENCFG, reg32);
 	printk(BIOS_DEBUG, "!!! 20\n");
+
+	/* Initialize the real time clock (RTC). */
+	cmos_init(0);
 
 	/* Initialize ISA DMA. */
 	isa_dma_init();

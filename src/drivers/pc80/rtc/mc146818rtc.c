@@ -14,6 +14,7 @@
 
 static void cmos_reset_date(void)
 {
+	printk(BIOS_DEBUG, "cmos_reset_date()\n");
 	/* Now setup a default date equals to the build date */
 	struct rtc_time time = {
 		.sec = 0,
@@ -26,10 +27,12 @@ static void cmos_reset_date(void)
 		.wday = bcd2bin(coreboot_build_date.weekday)
 	};
 	rtc_set(&time);
+	printk(BIOS_DEBUG, "END cmos_reset_date()\n");
 }
 
 int cmos_checksum_valid(int range_start, int range_end, int cks_loc)
 {
+	printk(BIOS_DEBUG, "cmos_checksum_valid()\n");
 	int i;
 	u16 sum, old_sum;
 
@@ -41,11 +44,13 @@ int cmos_checksum_valid(int range_start, int range_end, int cks_loc)
 		sum += cmos_read(i);
 	old_sum = ((cmos_read(cks_loc) << 8) | cmos_read(cks_loc + 1)) &
 		  0x0ffff;
+	printk(BIOS_DEBUG, "END cmos_checksum_valid()\n");
 	return sum == old_sum;
 }
 
 void cmos_set_checksum(int range_start, int range_end, int cks_loc)
 {
+	printk(BIOS_DEBUG, "cmos_set_checksum()\n");
 	int i;
 	u16 sum;
 
@@ -54,11 +59,13 @@ void cmos_set_checksum(int range_start, int range_end, int cks_loc)
 		sum += cmos_read(i);
 	cmos_write(((sum >> 8) & 0x0ff), cks_loc);
 	cmos_write(((sum >> 0) & 0x0ff), cks_loc + 1);
+	printk(BIOS_DEBUG, "END cmos_set_checksum()\n");
 }
 
 /* See if the CMOS error condition has been flagged */
 int cmos_error(void)
 {
+	printk(BIOS_DEBUG, "cmos_error()\n");
 	return (cmos_read(RTC_VALID) & RTC_VRT) == 0;
 }
 
@@ -67,6 +74,7 @@ int cmos_error(void)
 
 static bool __cmos_init(bool invalid)
 {
+	printk(BIOS_DEBUG, "__cmos_init()\n");
 	bool cmos_invalid;
 	bool checksum_invalid = false;
 	bool cleared_cmos = false;
@@ -135,11 +143,13 @@ static bool __cmos_init(bool invalid)
 	/* Clear any pending interrupts */
 	cmos_read(RTC_INTR_FLAGS);
 
+	printk(BIOS_DEBUG, "END __cmos_init()\n");
 	return cleared_cmos;
 }
 
 static void cmos_init_vbnv(bool invalid)
 {
+	printk(BIOS_DEBUG, "cmos_init_vbnv()\n");
 	uint8_t vbnv[VBOOT_VBNV_BLOCK_SIZE];
 
 	/* __cmos_init() will clear vbnv contents when a known rtc failure
@@ -151,10 +161,12 @@ static void cmos_init_vbnv(bool invalid)
 
 	if (__cmos_init(invalid))
 		save_vbnv_cmos(vbnv);
+	printk(BIOS_DEBUG, "END cmos_init_vbnv()\n");
 }
 
 void cmos_init(bool invalid)
 {
+	printk(BIOS_DEBUG, "cmos_init()\n");
 	if (ENV_SMM)
 		return;
 
@@ -162,6 +174,7 @@ void cmos_init(bool invalid)
 		cmos_init_vbnv(invalid);
 	else
 		__cmos_init(invalid);
+	printk(BIOS_DEBUG, "END cmos_init()\n");
 }
 
 /*
@@ -171,16 +184,20 @@ void cmos_init(bool invalid)
  */
 static void wait_uip(void)
 {
+	printk(BIOS_DEBUG, "wait_uip()\n");
 	while (cmos_read(RTC_REG_A) & RTC_UIP)
 		;
+	printk(BIOS_DEBUG, "END wait_uip()\n");
 }
 
 /* Perform a sanity check of current date and time. */
 static int cmos_date_invalid(void)
 {
+	printk(BIOS_DEBUG, "cmos_date_invalid()\n");
 	struct rtc_time now;
 
 	rtc_get(&now);
+	printk(BIOS_DEBUG, "END cmos_date_invalid()\n");
 	return rtc_invalid(&now);
 }
 
@@ -191,6 +208,7 @@ static int cmos_date_invalid(void)
  */
 void cmos_check_update_date(void)
 {
+	printk(BIOS_DEBUG, "cmos_check_update_date()\n");
 	u8 year, century = 0;
 
 	wait_uip();
@@ -205,10 +223,12 @@ void cmos_check_update_date(void)
 	 */
 	if (century > 0x99 || year > 0x99 || cmos_date_invalid()) /* Invalid date */
 		cmos_reset_date();
+	printk(BIOS_DEBUG, "END cmos_check_update_date()\n");
 }
 
 int rtc_set(const struct rtc_time *time)
 {
+	printk(BIOS_DEBUG, "rtc_set()\n");
 	cmos_write(bin2bcd(time->sec), RTC_CLK_SECOND);
 	cmos_write(bin2bcd(time->min), RTC_CLK_MINUTE);
 	cmos_write(bin2bcd(time->hour), RTC_CLK_HOUR);
@@ -218,11 +238,13 @@ int rtc_set(const struct rtc_time *time)
 	if (CONFIG(USE_PC_CMOS_ALTCENTURY))
 		cmos_write(bin2bcd(time->year / 100), RTC_CLK_ALTCENTURY);
 	cmos_write(bin2bcd(time->wday + 1), RTC_CLK_DAYOFWEEK);
+	printk(BIOS_DEBUG, "END rtc_set()\n");
 	return 0;
 }
 
 int rtc_get(struct rtc_time *time)
 {
+	printk(BIOS_DEBUG, "rtc_get()\n");
 	wait_uip();
 	time->sec = bcd2bin(cmos_read(RTC_CLK_SECOND));
 	time->min = bcd2bin(cmos_read(RTC_CLK_MINUTE));
@@ -238,6 +260,7 @@ int rtc_get(struct rtc_time *time)
 			time->year += 100;
 	}
 	time->wday = bcd2bin(cmos_read(RTC_CLK_DAYOFWEEK)) - 1;
+	printk(BIOS_DEBUG, "END rtc_get()\n");
 	return 0;
 }
 
@@ -247,6 +270,7 @@ int rtc_get(struct rtc_time *time)
  */
 void set_boot_successful(void)
 {
+	printk(BIOS_DEBUG, "set_boot_successful()\n");
 	uint8_t index, byte;
 
 	index = inb(RTC_PORT_BANK0(0)) & 0x80;
@@ -270,4 +294,5 @@ void set_boot_successful(void)
 	}
 
 	outb(byte, RTC_PORT_BANK0(1));
+	printk(BIOS_DEBUG, "END set_boot_successful()\n");
 }
