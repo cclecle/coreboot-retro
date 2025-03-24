@@ -21,44 +21,65 @@ static void isa_init(struct device *dev)
 	u32 reg32;
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
 
+	printk(BIOS_DEBUG, "!!! 1\n");
 	/* Initialize the real time clock (RTC). */
 	cmos_init(0);
 
+	printk(BIOS_DEBUG, "!!! 2\n");
 	/*
 	 * Enable special cycles, needed for soft poweroff.
 	 */
 	pci_or_config16(dev, PCI_COMMAND, PCI_COMMAND_SPECIAL);
 
+	printk(BIOS_DEBUG, "!!! 3\n");
 	/*
 	 * The PIIX4 can support the full ISA bus, or the Extended I/O (EIO)
 	 * bus, which is a subset of ISA. We select the full ISA bus here.
 	 */
 	reg32 = pci_read_config32(dev, GENCFG);
+	printk(BIOS_DEBUG, "!!! 4\n");
 	reg32 = ONOFF(1, 				reg32, ISA);		/* Select ISA */
+	printk(BIOS_DEBUG, "!!! 5\n");
 	//reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
 	//reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
 	reg32 = ONOFF(sb->gpi7_enable, 			reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
+	printk(BIOS_DEBUG, "!!! 6\n");
 	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* GPO1516 or SUSB/SUSC functionality*/
+	printk(BIOS_DEBUG, "!!! 7\n");
 	reg32 = ONOFF(sb->gpo17_enable, 		reg32, GPO17);		/* GPO17 or CPU_STP functionality*/
+	printk(BIOS_DEBUG, "!!! 8\n");
 	reg32 = ONOFF(sb->gpo18_enable, 		reg32, GPO18);		/* PCI_STP or GPO18 functionality*/
+	printk(BIOS_DEBUG, "!!! 9\n");
 	reg32 = ONOFF(sb->gpo19_enable, 		reg32, GPO19);		/* ZZ or GPO19 functionality*/
+	printk(BIOS_DEBUG, "!!! 10\n");
 	reg32 = ONOFF(sb->gpo20_enable, 		reg32, GPO20);		/* SUS_STAT1 or GPO20 functionality*/
+	printk(BIOS_DEBUG, "!!! 11\n");
 	reg32 = ONOFF(sb->gpo21_enable, 		reg32, GPO21);		/* SUS_STAT2 or GPO21 functionality*/
+	printk(BIOS_DEBUG, "!!! 12\n");
 	reg32 = ONOFF(sb->gpo2223_enable, 		reg32, GPO2223);	/* GPO22/23 functionality*/
+	printk(BIOS_DEBUG, "!!! 13\n");
 	reg32 = ONOFF(sb->gpo24_enable, 		reg32, GPO24);		/* RTCCS or GPO24 functionality*/
+	printk(BIOS_DEBUG, "!!! 14\n");
 	reg32 = ONOFF(sb->gpo25_enable, 		reg32, GPO25);		/* RTCALE or GPO25 functionality*/
+	printk(BIOS_DEBUG, "!!! 15\n");
 	reg32 = ONOFF(sb->gpo26_enable, 		reg32, GPO26);		/* KBCCS or GPO26 */
+	printk(BIOS_DEBUG, "!!! 16\n");
 
 	/* Enable REQ/GNT [A..C] signaling instead of GPI[2..4]/GPO[9..11] if configured*/
 	reg32 = ONOFF(sb->reqa_gnta_enable, reg32, REQAGNTA);
+	printk(BIOS_DEBUG, "!!! 17\n");
 	reg32 = ONOFF(sb->reqb_gntb_enable, reg32, REQBGNTB);
+	printk(BIOS_DEBUG, "!!! 18\n");
 	reg32 = ONOFF(sb->reqc_gntc_enable, reg32, REQCGNTC);
+	printk(BIOS_DEBUG, "!!! 19\n");
 
 
 	pci_write_config32(dev, GENCFG, reg32);
+	printk(BIOS_DEBUG, "!!! 20\n");
 
 	/* Initialize ISA DMA. */
 	isa_dma_init();
+	printk(BIOS_DEBUG, "!!! 21\n");
 
 	/*
 	 * Unlike most other southbridges the 82371EB doesn't have a built-in
@@ -69,6 +90,7 @@ static void isa_init(struct device *dev)
 	 * i.e. the respective mainboard does "select IOAPIC".
 	 */
 	if (CONFIG(IOAPIC)) {
+		printk(BIOS_DEBUG, "!!! 22\n");
 		u16 reg16;
 		u8 ioapic_id = 2;
 
@@ -81,7 +103,9 @@ static void isa_init(struct device *dev)
 		setup_ioapic(VIO_APIC_VADDR, ioapic_id);
 		if (ioapic_id != get_ioapic_id(VIO_APIC_VADDR))
 			die("IOAPIC error!\n");
+		printk(BIOS_DEBUG, "!!! 23\n");
 	}
+	printk(BIOS_DEBUG, "!!! END\n");
 }
 
 #define ACPI_SCI_IRQ	9
