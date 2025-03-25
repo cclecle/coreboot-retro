@@ -23,6 +23,9 @@ static void isa_init(struct device *dev)
 
 	printk(BIOS_DEBUG, "!!! 1\n");
 
+	/* Initialize the real time clock (RTC). */
+	cmos_init(0);
+
 	printk(BIOS_DEBUG, "!!! 2\n");
 	/*
 	 * Enable special cycles, needed for soft poweroff.
@@ -36,7 +39,7 @@ static void isa_init(struct device *dev)
 	 */
 	reg32 = pci_read_config32(dev, GENCFG);
 	printk(BIOS_DEBUG, "!!! 4\n");
-	reg32 = ONOFF(1, 				reg32, ISA);		/* Select ISA */
+	reg32 |= ISA;		/* Select ISA */
 	printk(BIOS_DEBUG, "!!! 5\n");
 	//reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
 	//reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
@@ -75,8 +78,6 @@ static void isa_init(struct device *dev)
 	pci_write_config32(dev, GENCFG, reg32);
 	printk(BIOS_DEBUG, "!!! 20\n");
 
-	/* Initialize the real time clock (RTC). */
-	cmos_init(0);
 
 	/* Initialize ISA DMA. */
 	isa_dma_init();
