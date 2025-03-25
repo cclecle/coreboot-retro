@@ -108,14 +108,15 @@
 
 static inline unsigned char cmos_read(unsigned char addr)
 {
+	printk(BIOS_DEBUG, "start cmos_read(%d) 1\n",addr);
 	int port = RTC_BASE_PORT_BANK0;
 	if (addr >= 128) {
 		port = RTC_BASE_PORT_BANK1;
 		addr -= 128;
 	}
-	printk(BIOS_DEBUG, "cmos_read() 1\n");
+	printk(BIOS_DEBUG, "(%d,%d) 1\n",addr,port);
 	outb(addr, port + 0);
-	printk(BIOS_DEBUG, "cmos_read() 2\n");
+	printk(BIOS_DEBUG, "2\n");
 	return inb(port + 1);
 }
 
