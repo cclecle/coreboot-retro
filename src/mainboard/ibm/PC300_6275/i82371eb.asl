@@ -5,7 +5,7 @@
 /* Declares assorted devices that fall under this southbridge. */
 Device (PX40)
 {
-	Name(_ADR, 0x00070000)
+	Name(_ADR, 0x00020000)
 	OperationRegion (PIRQ, PCI_Config, 0x60, 0x04)
 	Field (PIRQ, ByteAcc, NoLock, Preserve)
 	{
@@ -120,7 +120,7 @@ Device (PX40)
 }
 Device (PX43)
 {
-	Name (_ADR, 0x00070003)
+	Name (_ADR, 0x00020003)
 
 	Method (_CRS, 0, NotSerialized)
 	{

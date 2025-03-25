@@ -20,12 +20,12 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "rtccs_rtcale_disable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
-		device pnp 370.0 off		# Floppy
+		device pnp 370.0 on		# Floppy
 			io 0x60 = 0x3f0
 			irq 0x70 = 6
 			drq 0x74 = 2
 		end
-		device pnp 370.3 off		# Parallel Port
+		device pnp 370.3 on		# Parallel Port
 			io 0x60 = 0x378
 			irq 0x70 = 7
 			drq 0x74 = 3
@@ -34,7 +34,7 @@ chip northbridge/intel/i440bx		# Northbridge
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
-		device pnp 370.5 off		# Com2
+		device pnp 370.5 on		# Com2
 			io 0x60 = 0x2f8
 			irq 0x70 = 3
 		end
@@ -44,12 +44,12 @@ chip northbridge/intel/i440bx		# Northbridge
 			irq 0x70 = 1
 			irq 0x72 = 12
 		end
-		device pnp 370.8 off		# AUX
+		device pnp 370.8 on		# AUX
 		end
 	end # smscsuperio
       end
       device pci 2.1 on	end		# IDE
-      device pci 2.2 off end		# USB
+      device pci 2.2 on end		# USB
       device pci 2.3 on end		# ACPI
       register "ide0_enable" = "true"
       register "ide1_enable" = "true"
