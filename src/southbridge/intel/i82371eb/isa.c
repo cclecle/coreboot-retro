@@ -43,7 +43,7 @@ static void isa_init(struct device *dev)
 	printk(BIOS_DEBUG, "!!! 5\n");
 	//reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
 	//reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
-	reg32 = ONOFF(sb->gpi7_enable, 			reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
+	reg32 = ONOFF(sb->serirq_enable, 		reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
 	printk(BIOS_DEBUG, "!!! 6\n");
 	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* GPO1516 or SUSB/SUSC functionality*/
 	printk(BIOS_DEBUG, "!!! 7\n");
