@@ -5,27 +5,26 @@ chip northbridge/intel/i440bx		# Northbridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
       device pci 2.0 on			# ISA bridge
-	register "pnp_decode_enable" = "1"
-	register "positive_decode_enable" = "1"
-#	register "gpi7_enable" = "1"
-#	register "gpo17_enable" = "1"
-#	register "gpo18_enable" = "1"
-#	register "gpo19_enable" = "1"
-#	register "gpo20_enable" = "1"
-#	register "gpo21_enable" = "1"
+#	register "pnp_decode_enable" = "1"
+#	register "positive_decode_enable" = "1"
+	register "gpi7_enable" = "1"
+	register "gpo17_enable" = "1"
+	register "gpo18_enable" = "1"
+	register "gpo19_enable" = "1"
+	register "gpo20_enable" = "1"
+	register "gpo21_enable" = "1"
 	register "gpo2223_enable" = "1"
 	register "gpo24_enable" = "1"
 	register "gpo25_enable" = "1"
 	register "gpo26_enable" = "1"
- #      register "gpo" = "0x65ffbfff"
-        register "gpo" = "0x7fffbbff"
+        register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
-		device pnp 370.0 on	# Floppy
+		device pnp 370.0 off		# Floppy
 			io 0x60 = 0x3f0
 			irq 0x70 = 6
 			drq 0x74 = 2
 		end
-		device pnp 370.3 on		# Parallel Port
+		device pnp 370.3 off		# Parallel Port
 			io 0x60 = 0x378
 			irq 0x70 = 7
 			drq 0x74 = 3
@@ -34,7 +33,7 @@ chip northbridge/intel/i440bx		# Northbridge
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
-		device pnp 370.5 on		# Com2
+		device pnp 370.5 off		# Com2
 			io 0x60 = 0x2f8
 			irq 0x70 = 3
 		end
@@ -44,12 +43,12 @@ chip northbridge/intel/i440bx		# Northbridge
 			irq 0x70 = 1
 			irq 0x72 = 12
 		end
-		device pnp 370.8 on		# AUX
+		device pnp 370.8 off		# AUX
 		end
 	end # smscsuperio
       end
       device pci 2.1 on	end		# IDE
-      device pci 2.2 on	end		# USB
+      device pci 2.2 off end		# USB
       device pci 2.3 on end		# ACPI
       register "ide0_enable" = "true"
       register "ide1_enable" = "true"
