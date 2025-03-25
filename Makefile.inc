@@ -483,6 +483,7 @@ CFLAGS_common += -Wshadow -Wdate-time -Wtype-limits -Wvla -Wold-style-definition
 CFLAGS_common += -Wdangling-else -Wmissing-include-dirs
 CFLAGS_common += -fno-common -ffreestanding -fno-builtin -fomit-frame-pointer
 CFLAGS_common += -fstrict-aliasing -ffunction-sections -fdata-sections -fno-pie
+CFLAGS_common += -fno-reorder-functions
 ifeq ($(CONFIG_COMPILER_GCC),y)
 # Don't add these GCC specific flags when running scan-build
 ifeq ($(CCC_ANALYZER_OUTPUT_FORMAT),)
@@ -490,7 +491,6 @@ CFLAGS_common += -Wno-packed-not-aligned
 CFLAGS_common += -fconserve-stack
 CFLAGS_common += -Wnull-dereference
 CFLAGS_common += -Wlogical-op -Wduplicated-cond -Wno-array-compare
-CFLAGS_common += -fno-reorder-functions
 endif
 endif
 
