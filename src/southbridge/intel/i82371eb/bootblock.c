@@ -29,7 +29,6 @@ static pci_devfn_t pci_locate_device(unsigned int pci_id, pci_devfn_t dev)
 #endif
 void bootblock_early_southbridge_init(void)
 {
-	printk(BIOS_DEBUG, "bootblock_early_southbridge_init()\n");
 	u16 reg16;
 
 	/*
@@ -42,7 +41,6 @@ void bootblock_early_southbridge_init(void)
 	const pci_devfn_t dev = pci_locate_device(PCI_ID(PCI_VID_INTEL,
 				       PCI_DID_INTEL_82371AB_ISA), 0);
 
-	printk(BIOS_DEBUG, "found: %d (%d)\n",dev,PCI_ID(PCI_VID_INTEL,PCI_DID_INTEL_82371AB_ISA));
 	/* Enable access to the whole ROM, disable ROM write access. */
 	reg16 = pci_read_config16(dev, XBCS);
 	reg16 |= LOWER_BIOS_ENABLE | EXT_BIOS_ENABLE | EXT_BIOS_ENABLE_1MB;
@@ -51,5 +49,4 @@ void bootblock_early_southbridge_init(void)
 
 	/* Enable (RTC and) upper NVRAM bank. */
 	pci_write_config8(dev, RTCCFG, RTC_POS_DECODE | UPPER_RAM_EN | RTC_ENABLE);
-	printk(BIOS_DEBUG, "done bootblock_early_southbridge_init()\n");
 }
