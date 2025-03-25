@@ -113,7 +113,9 @@ static inline unsigned char cmos_read(unsigned char addr)
 		port = RTC_BASE_PORT_BANK1;
 		addr -= 128;
 	}
+	printk(BIOS_DEBUG, "cmos_read() 1\n");
 	outb(addr, port + 0);
+	printk(BIOS_DEBUG, "cmos_read() 2\n");
 	return inb(port + 1);
 }
 
