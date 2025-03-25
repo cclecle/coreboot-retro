@@ -30,8 +30,20 @@ static void isa_init(struct device *dev)
 
 	printk(BIOS_DEBUG, "!!! 1\n");
 
-
+	if(sb->rtccs_rtcale_disable)
+	{
+		u16 reg16;
+		reg16 = pci_read_config16(dev, XBCS);
+		reg16 &= ~(RTCCS_RTCALE_ENABLE);
+		pci_write_config16(dev, XBCS, reg16);
+	}
+	_reg16 = pci_read_config16(dev, XBCS);
+	printk(BIOS_DEBUG, "XBCS=%d\n",_reg16);
 	printk(BIOS_DEBUG, "!!! 2\n");
+
+	/* Initialize the real time clock (RTC). */
+	cmos_init(0);
+
 	/*
 	 * Enable special cycles, needed for soft poweroff.
 	 */
@@ -83,8 +95,6 @@ static void isa_init(struct device *dev)
 	pci_write_config32(dev, GENCFG, reg32);
 	printk(BIOS_DEBUG, "!!! 20\n");
 
-	/* Initialize the real time clock (RTC). */
-	cmos_init(0);
 
 	/* Initialize ISA DMA. */
 	isa_dma_init();

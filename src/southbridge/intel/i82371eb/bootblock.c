@@ -41,10 +41,12 @@ void bootblock_early_southbridge_init(void)
 	const pci_devfn_t dev = pci_locate_device(PCI_ID(PCI_VID_INTEL,
 				       PCI_DID_INTEL_82371AB_ISA), 0);
 
-	/* Enable access to the whole ROM, disable ROM write access. */
+
+       /* Enable access to the whole ROM, disable ROM write access. */
 	reg16 = pci_read_config16(dev, XBCS);
 	reg16 |= LOWER_BIOS_ENABLE | EXT_BIOS_ENABLE | EXT_BIOS_ENABLE_1MB;
 	reg16 &= ~(WRITE_PROTECT_ENABLE);	/* Disable ROM write access. */
+
 	pci_write_config16(dev, XBCS, reg16);
 
 	/* Enable (RTC and) upper NVRAM bank. */

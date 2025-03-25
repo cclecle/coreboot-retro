@@ -21,6 +21,12 @@ void i82371eb_early_init(void);
 #define ONOFF(cond,reg,bits) ((cond) ? ((reg) | (bits)) : ((reg) & ~(bits)))
 
 #define XBCS		0x4e	/* X-Bus chip select register */
+#define   RTCCS_RTCALE_ENABLE	(1 << 0)  /* */
+#define   KBCCS_ENABLE		(1 << 1)  /* */
+#define   WRITE_PROTECT_ENABLE	(1 << 2)  /* Write Protect Enable */
+#define   LOWER_BIOS_ENABLE	(1 << 6)  /* Lower BIOS Enable */
+#define   EXT_BIOS_ENABLE	(1 << 7)  /* Extended BIOS Enable */
+#define   EXT_BIOS_ENABLE_1MB	(1 << 9)  /* 1-Meg Extended BIOS Enable */
 #define GENCFG		0xb0	/* General configuration register */
 #define   ISA			(1<<0)  /* Select ISA */
 #define   POSITIVE_DECODE 	(1<<1)  /* Positive or Substractive Decode */
@@ -119,10 +125,6 @@ void i82371eb_early_init(void);
 #define   PMIOSE	(1 << 0) /* PM I/O Space Enable */
 
 /* Bit definitions */
-#define EXT_BIOS_ENABLE_1MB	(1 << 9)  /* 1-Meg Extended BIOS Enable */
-#define EXT_BIOS_ENABLE		(1 << 7)  /* Extended BIOS Enable */
-#define LOWER_BIOS_ENABLE	(1 << 6)  /* Lower BIOS Enable */
-#define WRITE_PROTECT_ENABLE	(1 << 2)  /* Write Protect Enable */
 #define SMB_HST_EN		(1 << 0)  /* Host Interface Enable */
 #define IDE_DECODE_ENABLE	(1 << 15) /* IDE Decode Enable */
 #define DTE0			(1 << 3)  /* DMA Timing Enable Only, drive 0 */

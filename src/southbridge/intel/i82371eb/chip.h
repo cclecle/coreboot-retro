@@ -15,6 +15,7 @@ struct southbridge_intel_i82371eb_config {
 	bool ide1_drive1_udma33_enable;
 	bool ide_legacy_enable;
 	bool usb_enable;
+	bool rtccs_rtcale_disable;
 	bool serirq_enable;  /* Select GPI7 (1) or SERIRQ (0) */
 	bool gpo1516_enable; /* GPO15/GPO16 (1) vs. SUSB#/SUSC# (0) */
 	bool gpo17_enable; /* GPO17 (1) vs. CPU_STP# (0) */
