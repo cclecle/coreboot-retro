@@ -30,7 +30,7 @@ static pci_devfn_t pci_locate_device(unsigned int pci_id, pci_devfn_t dev)
 void bootblock_early_southbridge_init(void)
 {
 	u16 reg16;
-
+	u8 reg8;
 	/*
 	 * Note: The Intel 82371AB/EB/MB ISA device can be on different
 	 * PCI bus:device.function locations on different boards.
@@ -51,4 +51,13 @@ void bootblock_early_southbridge_init(void)
 
 	/* Enable (RTC and) upper NVRAM bank. */
 	pci_write_config8(dev, RTCCFG, RTC_POS_DECODE | UPPER_RAM_EN | RTC_ENABLE);
+
+
+	/* Set up NMI on errors. */
+	reg8 = inb(0x61);
+	reg8 &= 0x0f;		/* Higher Nibble must be 0 */
+	reg8 &= ~(1 << 3);	/* IOCHK# NMI Enable */
+	reg8 |= (1 << 2); 	/* PCI SERR# Disable for now */
+	outb(reg8, 0x61);
+
 }
