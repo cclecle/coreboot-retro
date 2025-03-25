@@ -490,6 +490,7 @@ CFLAGS_common += -Wno-packed-not-aligned
 CFLAGS_common += -fconserve-stack
 CFLAGS_common += -Wnull-dereference
 CFLAGS_common += -Wlogical-op -Wduplicated-cond -Wno-array-compare
+CFLAGS_common += -fno-reorder-functions
 endif
 endif
 
