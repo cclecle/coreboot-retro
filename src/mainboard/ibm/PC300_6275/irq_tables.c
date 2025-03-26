@@ -27,38 +27,38 @@ pirq_info->rfu = rfu;
 
 unsigned long write_pirq_routing_table(unsigned long addr)
 {
-struct irq_routing_table *pirq;
-struct irq_info *pirq_info;
-u32 slot_num;
+	struct irq_routing_table *pirq;
+	struct irq_info *pirq_info;
+	u32 slot_num;
 
-u8 sum = 0;
-int i;
+	u8 sum = 0;
+	int i;
 
-/* Align the table to be 16 byte aligned. */
-addr = ALIGN_UP(addr, 16);
+	/* Align the table to be 16 byte aligned. */
+	addr = ALIGN_UP(addr, 16);
 
-/* This table must be between 0xf0000 & 0x100000 */
-printk(BIOS_INFO, "Writing IRQ routing tables to 0x%lx...", addr);
+	/* This table must be between 0xf0000 & 0x100000 */
+	printk(BIOS_INFO, "Writing IRQ routing tables to 0x%lx...\n", addr);
 
-pirq = (void *)(addr);
+	pirq = (void *)(addr);
 
-pirq->signature = PIRQ_SIGNATURE;
-pirq->version = PIRQ_VERSION;
+	pirq->signature = PIRQ_SIGNATURE;
+	pirq->version = PIRQ_VERSION;
 
-pirq->rtr_bus = 0;
-pirq->rtr_devfn = PCI_DEVFN(0x02, 0);
+	pirq->rtr_bus = 0;
+	pirq->rtr_devfn = PCI_DEVFN(0x02, 0);
 
-pirq->exclusive_irqs = 0x0c80;
+	pirq->exclusive_irqs = 0x0c80;
 
-pirq->rtr_vendor = 0x8086;
-pirq->rtr_device = 0x122e;
+	pirq->rtr_vendor = 0x8086;
+	pirq->rtr_device = 0x122e;
 
-pirq->miniport_data = 0;
+	pirq->miniport_data = 0;
 
-memset(pirq->rfu, 0, sizeof(pirq->rfu));
+	memset(pirq->rfu, 0, sizeof(pirq->rfu));
 
-pirq_info = (void *)(&pirq->slots);
-slot_num = 0;
+	pirq_info = (void *)(&pirq->slots);
+	slot_num = 0;
 
 
 	/* 82443LX/EX 440LX/EX PCI to AGP Bridge  */
@@ -94,9 +94,9 @@ slot_num = 0;
 	pirq->size = 32 + 16 * slot_num;
 
 	{
-	const u8 *const v = (u8 *)(pirq);
-	for (i = 0; i < pirq->size; i++)
-	sum += v[i];
+		const u8 *const v = (u8 *)(pirq);
+		for (i = 0; i < pirq->size; i++)
+			sum += v[i];
 	}
 
 	sum = pirq->checksum - sum;

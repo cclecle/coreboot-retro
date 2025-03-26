@@ -5,8 +5,8 @@ chip northbridge/intel/i440bx		# Northbridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
       device pci 2.0 on			# ISA bridge
-#	register "pnp_decode_enable" = "1"
-#	register "positive_decode_enable" = "1"
+	register "pnp_decode_enable" = "1"
+	register "positive_decode_enable" = "1"
 	register "serirq_enable" = "1"
 	register "gpo17_enable" = "1"
 	register "gpo18_enable" = "1"
