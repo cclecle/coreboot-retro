@@ -22,7 +22,7 @@ config BOARD_SPECIFIC_OPTIONS
 config SEABIOS_PS2_TIMEOUT
 	int
 	depends on PAYLOAD_SEABIOS
-	default 2500
+	default 5000
 
 config MAX_CPUS
 	int
