@@ -52,7 +52,7 @@ int int10_handler(void)
 		res = 1;
 		break;
 	case 0x09: // Write Character and attribute
-	case 0x0e: // Write Character
+	case 0x10: // Write Character
 		printk(BIOS_INFO, "%c", X86_EAX & 0xff);
 		res = 1;
 		break;
