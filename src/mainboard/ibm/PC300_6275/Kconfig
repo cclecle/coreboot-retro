@@ -19,6 +19,11 @@ config BOARD_SPECIFIC_OPTIONS
 	select USE_OPTION_TABLE
 	select HAVE_ACPI_TABLES
 
+config SEABIOS_PS2_TIMEOUT
+	int
+	depends on PAYLOAD_SEABIOS
+	default 2500
+
 config MAX_CPUS
 	int
 	default 1
