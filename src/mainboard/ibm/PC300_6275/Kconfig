@@ -31,7 +31,7 @@ config MAINBOARD_PART_NUMBER
 
 config IRQ_SLOT_COUNT
 	int
-	default 5
+	default 9
 
 config PAYLOAD_CONFIGFILE
 	string
