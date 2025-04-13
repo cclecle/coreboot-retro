@@ -103,7 +103,7 @@ unsigned long write_pirq_routing_table(unsigned long addr)
 	addr = ALIGN_UP(addr, 16);
 
 	// This table must be between 0xf0000 & 0x100000
-	printk(BIOS_INFO, "Writing IRQ routing tables to 0x%lx...", addr);
+	printk(BIOS_INFO, "Writing IRQ routing tables to 0x%lx ...\n", addr);
 
 	pirq = (void *)(addr);
 
@@ -111,7 +111,7 @@ unsigned long write_pirq_routing_table(unsigned long addr)
 	pirq->version = PIRQ_VERSION;
 
 	pirq->rtr_bus = 0;
-	pirq->rtr_devfn = PCI_DEVFN(0x07, 0);
+	pirq->rtr_devfn = PCI_DEVFN(0x02, 0);
 
 	pirq->exclusive_irqs = 0x0c80;
 
