@@ -305,8 +305,8 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		if (regval != 0xAA)
 		{
 			printk(BIOS_INFO, "Fail\n");
-			mdelay(100);
-			kb_timeout_ms-=100;
+			mdelay(10);
+			kb_timeout_ms-=10;
 		}
 
 	} while ((regval != 0xAA) && kb_timeout_ms);
