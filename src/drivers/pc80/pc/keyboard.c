@@ -265,12 +265,23 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		return 0;
 
 	/* reset keyboard and self test (keyboard side) */
-	regval = send_keyboard(0xFF);
-	if (regval == KBD_REPLY_RESEND) {
-		// keeps sending RESENDs, probably no keyboard.
-		printk(BIOS_INFO, "No PS/2 keyboard detected.\n");
-		return 0;
-	}
+
+	do
+	{
+		regval = send_keyboard(0xFF);
+		if (regval == KBD_REPLY_RESEND) {
+			// keeps sending RESENDs, probably no keyboard.
+			printk(BIOS_INFO, "No PS/2 keyboard detected.\n");
+			return 0;
+		}
+		else if(regval!=KBD_REPLY_ACK)
+		{
+			mdelay(100);
+			kb_timeout_ms-=100;
+		}
+
+	} while ((regval != KBD_REPLY_ACK) && kb_timeout_ms);
+
 	if (regval != KBD_REPLY_ACK) {
 		printk(BIOS_ERR, "Keyboard reset failed ACK: 0x%x\n", regval);
 		return 0;
@@ -305,8 +316,8 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		if (regval != 0xAA)
 		{
 			printk(BIOS_INFO, "Fail\n");
-			mdelay(10);
-			kb_timeout_ms-=10;
+			mdelay(100);
+			kb_timeout_ms-=100;
 		}
 
 	} while ((regval != 0xAA) && kb_timeout_ms);
