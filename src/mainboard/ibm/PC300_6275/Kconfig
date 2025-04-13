@@ -18,6 +18,7 @@ config BOARD_SPECIFIC_OPTIONS
 	select BOARD_ROMSIZE_KB_256
 	select USE_OPTION_TABLE
 	select HAVE_ACPI_TABLES
+	select GENERATE_SMBIOS_TABLES
 
 
 
@@ -39,15 +40,13 @@ config SEABIOS_PS2_TIMEOUT
 	int
 	default 5000
 
-#config PAYLOAD_CONFIGFILE
-#	string
-#	depends on PAYLOAD_SEABIOS
-#	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/config_seabios" if PAYLOAD_SEABIOS
+config PAYLOAD_CONFIGFILE
+	string
+	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/config_seabios" if PAYLOAD_SEABIOS
 
-#config SEABIOS_BOOTORDER_FILE
-#	string
-#	depends on PAYLOAD_SEABIOS
-#	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_SEABIOS
+config SEABIOS_BOOTORDER_FILE
+	string
+	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_SEABIOS
 
 #config SEABIOS_REVISION_ID
 #	string
