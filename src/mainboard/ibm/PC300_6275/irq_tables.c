@@ -67,6 +67,23 @@
 	 return copy_pirq_routing_table(addr, &intel_irq_routing_table);
  }*/
 
+ static void write_pirq_info(struct irq_info *pirq_info, u8 bus, u8 devfn,
+	u8 link0, u16 bitmap0, u8 link1, u16 bitmap1,
+	u8 link2, u16 bitmap2, u8 link3, u16 bitmap3, u8 slot, u8 rfu)
+{
+pirq_info->bus = bus;
+pirq_info->devfn = devfn;
+pirq_info->irq[0].link = link0;
+pirq_info->irq[0].bitmap = bitmap0;
+pirq_info->irq[1].link = link1;
+pirq_info->irq[1].bitmap = bitmap1;
+pirq_info->irq[2].link = link2;
+pirq_info->irq[2].bitmap = bitmap2;
+pirq_info->irq[3].link = link3;
+pirq_info->irq[3].bitmap = bitmap3;
+pirq_info->slot = slot;
+pirq_info->rfu = rfu;
+}
 
 
 unsigned long write_pirq_routing_table(unsigned long addr)
