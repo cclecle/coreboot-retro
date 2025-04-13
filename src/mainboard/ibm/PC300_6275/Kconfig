@@ -19,10 +19,7 @@ config BOARD_SPECIFIC_OPTIONS
 	select USE_OPTION_TABLE
 	select HAVE_ACPI_TABLES
 
-config SEABIOS_PS2_TIMEOUT
-	int
-	depends on PAYLOAD_SEABIOS
-	default 5000
+
 
 config MAX_CPUS
 	int
@@ -40,10 +37,31 @@ config IRQ_SLOT_COUNT
 
 config PAYLOAD_CONFIGFILE
 	string
+	depends on PAYLOAD_SEABIOS
 	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/config_seabios" if PAYLOAD_SEABIOS
 
 config SEABIOS_BOOTORDER_FILE
 	string
+	depends on PAYLOAD_SEABIOS
 	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_SEABIOS
 
+config SEABIOS_REVISION
+	bool
+	depends on PAYLOAD_SEABIOS
+	default 1
+
+config SEABIOS_REVISION_ID
+	string
+	depends on PAYLOAD_SEABIOS
+	default "origin/work_300GL"
+
+config SEABIOS_PS2_TIMEOUT
+	int
+	depends on PAYLOAD_SEABIOS
+	default 5000
+
+config SEABIOS_DEBUG_LEVEL
+	int
+	depends on PAYLOAD_SEABIOS
+	default 7
 endif
