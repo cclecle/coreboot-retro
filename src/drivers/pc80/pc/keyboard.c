@@ -329,6 +329,8 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		return 0;
 	}
 
+	mdelay(100);
+
 	/*
 	 * The following set scancode stuff is what normal BIOS do. It could be
 	 * argued that coreboot shouldn't set the scan code.....
@@ -341,6 +343,8 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		printk(BIOS_ERR, "Keyboard disable failed ACK: 0x%x\n", regval);
 		return 0;
 	}
+
+	mdelay(100);
 
 	printk(BIOS_INFO, "B\n");
 	/* Set scancode command */

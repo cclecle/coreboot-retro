@@ -97,30 +97,32 @@ DefinitionBlock (
 
 			/* PCI Routing Table */
 			Name (_PRT, Package () {
+				/* PCI/AGP bridge*/
 				Package (0x04) { 0x0001FFFF, 0, LNKA, 0 },
 				Package (0x04) { 0x0001FFFF, 1, LNKB, 0 },
 				Package (0x04) { 0x0001FFFF, 2, LNKC, 0 },
 				Package (0x04) { 0x0001FFFF, 3, LNKD, 0 },
 
+				/* ISA Bridge*/
 				Package (0x04) { 0x0002FFFF, 0, LNKA, 0 },
 				Package (0x04) { 0x0002FFFF, 1, LNKB, 0 },
 				Package (0x04) { 0x0002FFFF, 2, LNKC, 0 },
 				Package (0x04) { 0x0002FFFF, 3, LNKD, 0 },
 
-				Package (0x04) { 0x000AFFFF, 0, LNKD, 0 },
-				Package (0x04) { 0x000AFFFF, 1, LNKA, 0 },
-				Package (0x04) { 0x000AFFFF, 2, LNKB, 0 },
-				Package (0x04) { 0x000AFFFF, 3, LNKC, 0 },
+				Package (0x04) { 0x000AFFFF, 0, LNKC, 0 },
+				Package (0x04) { 0x000AFFFF, 1, LNKD, 0 },
+				Package (0x04) { 0x000AFFFF, 2, LNKA, 0 },
+				Package (0x04) { 0x000AFFFF, 3, LNKB, 0 },
 
-				Package (0x04) { 0x000CFFFF, 0, LNKC, 0 },
-				Package (0x04) { 0x000CFFFF, 1, LNKD, 0 },
-				Package (0x04) { 0x000CFFFF, 2, LNKA, 0 },
-				Package (0x04) { 0x000CFFFF, 3, LNKB, 0 },
+				Package (0x04) { 0x000CFFFF, 0, LNKB, 0 },
+				Package (0x04) { 0x000CFFFF, 1, LNKC, 0 },
+				Package (0x04) { 0x000CFFFF, 2, LNKD, 0 },
+				Package (0x04) { 0x000CFFFF, 3, LNKA, 0 },
 
-				Package (0x04) { 0x000EFFFF, 0, LNKB, 0 },
-				Package (0x04) { 0x000EFFFF, 1, LNKC, 0 },
-				Package (0x04) { 0x000EFFFF, 2, LNKD, 0 },
-				Package (0x04) { 0x000EFFFF, 3, LNKA, 0 },
+				Package (0x04) { 0x000EFFFF, 0, LNKA, 0 },
+				Package (0x04) { 0x000EFFFF, 1, LNKB, 0 },
+				Package (0x04) { 0x000EFFFF, 2, LNKC, 0 },
+				Package (0x04) { 0x000EFFFF, 3, LNKD, 0 },
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>

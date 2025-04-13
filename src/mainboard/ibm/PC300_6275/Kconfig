@@ -34,7 +34,7 @@ config MAINBOARD_PART_NUMBER
 
 config IRQ_SLOT_COUNT
 	int
-	default 9
+	default 5
 
 config SEABIOS_PS2_TIMEOUT
 	int
