@@ -43,7 +43,7 @@ config PAYLOAD_CONFIGFILE
 config SEABIOS_BOOTORDER_FILE
 	string
 	depends on PAYLOAD_SEABIOS
-	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_BUILD_PAYLOAD_SEABIOSSEABIOS
+	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_SEABIOS
 
 config SEABIOS_REVISION
 	bool
