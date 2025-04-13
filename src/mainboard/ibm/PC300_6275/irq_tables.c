@@ -18,11 +18,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
- #ifdef GETPIR			/* TODO: Drop this when copying to coreboot. */
- #include "pirq_routing.h"	/* TODO: Drop this when copying to coreboot. */
- #else				/* TODO: Drop this when copying to coreboot. */
  #include <arch/pirq_routing.h>
- #endif				/* TODO: Drop this when copying to coreboot. */
 
  const struct irq_routing_table intel_irq_routing_table = {
 	 PIRQ_SIGNATURE,		/* u32 signature */
