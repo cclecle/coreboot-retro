@@ -309,8 +309,20 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		printk(BIOS_ERR, "Timeout waiting for keyboard after reset.\n");
 		return 0;
 	}
+	kb_timeout_ms = 5000;
+	do
+	{
+		regval = inb(KBD_DATA);
+		if (regval != 0xAA)
+		{
+			printk(BIOS_INFO, "Fail\n");
+			mdelay(100);
+			kb_timeout_ms-=100;
+		}
 
-	regval = inb(KBD_DATA);
+	} while ((regval != 0xAA) && kb_timeout_ms);
+
+	//regval = inb(KBD_DATA);
 	if (regval != 0xAA) {
 		printk(BIOS_ERR, "Keyboard reset selftest failed: 0x%x\n",
 		       regval);
