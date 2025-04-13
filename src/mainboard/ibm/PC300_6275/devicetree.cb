@@ -30,7 +30,7 @@ chip northbridge/intel/i440bx		# Northbridge
 			irq 0x70 = 7
 			drq 0x74 = 3
 		end
-		device pnp 370.4 on		# COM1
+		device pnp 370.4 on		# Com1
 			io 0x60 = 0x3f8
 			irq 0x70 = 4
 		end
@@ -39,12 +39,12 @@ chip northbridge/intel/i440bx		# Northbridge
 			irq 0x70 = 3
 		end
 		device pnp 370.7 on		# Keyboard
-			io 0x60 = 0x60
-			io 0x62 = 0x64
+			# io 0x60 = 0x60
+			# io 0x62 = 0x64
 			irq 0x70 = 1
 			irq 0x72 = 12
 		end
-		device pnp 370.8 on		# AUX
+		device pnp 370.8 on		# Aux
 		end
 	end # smscsuperio
       end

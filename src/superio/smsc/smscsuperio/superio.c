@@ -137,6 +137,8 @@ static void smsc_init(struct device *dev)
 {
 	int i, ld;
 
+	printk(BIOS_DEBUG, "smsc_init\n");
+
 	/* Do not initialize disabled devices. */
 	if (!dev->enabled)
 		return;
@@ -151,10 +153,13 @@ static void smsc_init(struct device *dev)
 		return;
 
 	/* A Super I/O was found, so initialize the respective device. */
+	printk(BIOS_DEBUG, "HEY YAHH\n");
 	ld = dev->path.pnp.device;
 	if (ld == logical_device_table[i].devs[LD_KBC]) {
+		printk(BIOS_DEBUG, "FOUND KEYBOARD\n");
 		pc_keyboard_init(NO_AUX_DEVICE);
 	}
+	printk(BIOS_DEBUG, "smsc_init DONE\n");
 }
 
 /** Standard device operations. */
