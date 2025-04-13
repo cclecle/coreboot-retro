@@ -1,5 +1,5 @@
 TAG-$(CONFIG_SEABIOS_MASTER)=origin/master
-TAG-$(CONFIG_SEABIOS_STABLE)=ea1b7a0733906b8425d948ae94fba63c32b1d425
+TAG-$(CONFIG_SEABIOS_STABLE)=origin/work_300GL
 TAG-$(CONFIG_SEABIOS_REVISION)=$(CONFIG_SEABIOS_REVISION_ID)
 
 project_git_repo=https://github.com/cclecle/seabios.git
