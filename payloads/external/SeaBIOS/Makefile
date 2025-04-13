@@ -2,7 +2,7 @@ TAG-$(CONFIG_SEABIOS_MASTER)=origin/master
 TAG-$(CONFIG_SEABIOS_STABLE)=ea1b7a0733906b8425d948ae94fba63c32b1d425
 TAG-$(CONFIG_SEABIOS_REVISION)=$(CONFIG_SEABIOS_REVISION_ID)
 
-project_git_repo=https://review.coreboot.org/seabios.git
+project_git_repo=https://github.com/cclecle/seabios.git
 project_dir=seabios
 
 unexport KCONFIG_AUTOHEADER
@@ -34,7 +34,7 @@ endif
 
 checkout: fetch
 	echo "    Checking out SeaBIOS revision $(TAG-y)"
-	cd seabios; git checkout master; git branch -D coreboot 2>/dev/null; git checkout -b coreboot $(TAG-y)
+	cd seabios; git checkout work_300GL; git branch -D coreboot 2>/dev/null; git checkout -b coreboot $(TAG-y)
 
 config: checkout
 	echo "    CONFIG     SeaBIOS $(TAG-y)"
