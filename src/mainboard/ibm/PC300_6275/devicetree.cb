@@ -5,9 +5,9 @@ chip northbridge/intel/i440bx		# Northbridge
     device pci 1.0 on end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
       device pci 2.0 on			# ISA bridge
-	register "pnp_decode_enable" = "1"
-	register "positive_decode_enable" = "1"
-	register "serirq_enable" = "1"
+#	register "pnp_decode_enable" = "1"
+#	register "positive_decode_enable" = "1"
+	register "serirq_enable" = "0"
 	register "gpo17_enable" = "1"
 	register "gpo18_enable" = "1"
 	register "gpo19_enable" = "1"
@@ -17,7 +17,7 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "gpo24_enable" = "1"
 	register "gpo25_enable" = "1"
 	register "gpo26_enable" = "1"
-	register "rtccs_rtcale_disable" = "1"
+#	register "rtccs_rtcale_disable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
 		device pnp 370.0 on		# Floppy
