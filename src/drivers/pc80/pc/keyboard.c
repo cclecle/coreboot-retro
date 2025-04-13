@@ -232,6 +232,7 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 	u8 regval;
 	enum cb_err err;
 	uint8_t aux_dev_detected;
+	u32 kb_timeout_ms = 5000;
 
 	if (!CONFIG(DRIVERS_PS2_KEYBOARD))
 		return 0;
@@ -264,9 +265,32 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		return 0;
 
 	/* reset keyboard and self test (keyboard side) */
+
+	do
+	{
+		regval = send_keyboard(0xFF);
+		if (regval == KBD_REPLY_RESEND) {
+			// keeps sending RESENDs, probably no keyboard.
+			printk(BIOS_INFO, "No PS/2 keyboard detected.\n");
+			return 0;
+		}
+		else if(regval!=KBD_REPLY_ACK)
+		{
+			mdelay(100);
+			kb_timeout_ms-=100;
+		}
+
+	} while ((regval != KBD_REPLY_ACK) && kb_timeout_ms);
+
+	if (regval != KBD_REPLY_ACK) {
+		printk(BIOS_ERR, "Keyboard reset failed ACK: 0x%x\n", regval);
+		return 0;
+	}
+
+	/*
 	regval = send_keyboard(0xFF);
 	if (regval == KBD_REPLY_RESEND) {
-		/* keeps sending RESENDs, probably no keyboard. */
+		// keeps sending RESENDs, probably no keyboard.
 		printk(BIOS_INFO, "No PS/2 keyboard detected.\n");
 		return 0;
 	}
@@ -275,6 +299,7 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		printk(BIOS_ERR, "Keyboard reset failed ACK: 0x%x\n", regval);
 		return 0;
 	}
+	*/
 
 	/* the reset command takes some time, so wait a little longer */
 	for (retries = 9; retries && !kbc_output_buffer_full(); retries--)
@@ -297,6 +322,7 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 	 * argued that coreboot shouldn't set the scan code.....
 	 */
 
+	 printk(BIOS_INFO, "A\n");
 	/* disable the keyboard */
 	regval = send_keyboard(0xF5);
 	if (regval != KBD_REPLY_ACK) {
@@ -304,6 +330,7 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		return 0;
 	}
 
+	printk(BIOS_INFO, "B\n");
 	/* Set scancode command */
 	regval = send_keyboard(0xF0);
 	if (regval != KBD_REPLY_ACK) {
@@ -311,6 +338,8 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		       regval);
 		return 0;
 	}
+
+	printk(BIOS_INFO, "C\n");
 	/* Set scancode mode 2 */
 	regval = send_keyboard(0x02);
 	if (regval != KBD_REPLY_ACK) {
@@ -319,18 +348,25 @@ uint8_t pc_keyboard_init(uint8_t probe_aux)
 		return 0;
 	}
 
+
+	printk(BIOS_INFO, "D\n");
 	/* All is well - enable keyboard interface */
 	if (!kbc_input_buffer_empty())
 		return 0;
+
+	printk(BIOS_INFO, "E\n");
 	outb(0x60, KBD_COMMAND);
 	if (!kbc_input_buffer_empty())
 		return 0;
+
+	printk(BIOS_INFO, "F\n");
 	outb(0x65, KBD_DATA);	/* send cmd: enable keyboard and IRQ 1 */
 	if (!kbc_input_buffer_empty()) {
 		printk(BIOS_ERR, "Timeout during keyboard enable\n");
 		return 0;
 	}
 
+	printk(BIOS_INFO, "G\n");
 	/* enable the keyboard */
 	regval = send_keyboard(0xF4);
 	if (regval != KBD_REPLY_ACK) {
