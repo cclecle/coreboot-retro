@@ -45,10 +45,10 @@ config SEABIOS_BOOTORDER_FILE
 	depends on PAYLOAD_SEABIOS
 	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_SEABIOS
 
-config SEABIOS_REVISION
-	bool
-	depends on PAYLOAD_SEABIOS
-	select y
+#config SEABIOS_REVISION
+#	bool
+#	depends on PAYLOAD_SEABIOS
+#	select y
 
 config SEABIOS_REVISION_ID
 	string
