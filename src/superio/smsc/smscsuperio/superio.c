@@ -156,10 +156,8 @@ static void smsc_init(struct device *dev)
 	printk(BIOS_DEBUG, "HEY YAHH\n");
 	ld = dev->path.pnp.device;
 	if (ld == logical_device_table[i].devs[LD_KBC]) {
-		int res = 0;
 		printk(BIOS_DEBUG, "FOUND KEYBOARD\n");
-		for(int itest=0;(itest<10) && res==0;itest++)
-			res = pc_keyboard_init(NO_AUX_DEVICE);
+		pc_keyboard_init(NO_AUX_DEVICE);
 	}
 	printk(BIOS_DEBUG, "smsc_init DONE\n");
 }
