@@ -18,7 +18,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
- #include <arch/pirq_routing.h>
+#include <arch/pirq_routing.h>
+#include <console/console.h>
+#include <device/pci_def.h>
+#include <string.h>
 
  const struct irq_routing_table intel_irq_routing_table = {
 	 PIRQ_SIGNATURE,		/* u32 signature */
