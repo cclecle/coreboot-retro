@@ -48,7 +48,7 @@ config IRQ_SLOT_COUNT
 config SEABIOS_REVISION
 	bool
 	depends on PAYLOAD_SEABIOS
-	default 1
+	default y
 
 config SEABIOS_REVISION_ID
 	string
@@ -57,7 +57,6 @@ config SEABIOS_REVISION_ID
 
 config SEABIOS_PS2_TIMEOUT
 	int
-	depends on PAYLOAD_SEABIOS
 	default 5000
 
 config SEABIOS_DEBUG_LEVEL
