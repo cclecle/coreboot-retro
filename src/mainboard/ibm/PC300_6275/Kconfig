@@ -37,22 +37,28 @@ config IRQ_SLOT_COUNT
 
 config PAYLOAD_CONFIGFILE
 	string
-	depends on PAYLOAD_BUILD_SEABIOS
-	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/config_seabios" if PAYLOAD_BUILD_SEABIOS
+	depends on PAYLOAD_SEABIOS
+	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/config_seabios" if PAYLOAD_SEABIOS
 
 config SEABIOS_BOOTORDER_FILE
 	string
-	depends on PAYLOAD_BUILD_SEABIOS
-	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_BUILD_SEABIOS
+	depends on PAYLOAD_SEABIOS
+	default "\$(top)/src/mainboard/\$(MAINBOARDDIR)/bootorder" if PAYLOAD_BUILD_PAYLOAD_SEABIOSSEABIOS
+
+config PAYLOAD_BUILD_SEABIOS
+	bool
+	depends on PAYLOAD_SEABIOS
+	select y
+
 
 config SEABIOS_REVISION
 	bool
-	depends on PAYLOAD_BUILD_SEABIOS
+	depends on PAYLOAD_SEABIOS
 	select y
 
 config SEABIOS_REVISION_ID
 	string
-	depends on PAYLOAD_BUILD_SEABIOS
+	depends on PAYLOAD_SEABIOS
 	default "origin/work_300GL"
 
 config SEABIOS_PS2_TIMEOUT
@@ -61,6 +67,6 @@ config SEABIOS_PS2_TIMEOUT
 
 config SEABIOS_DEBUG_LEVEL
 	int
-	depends on PAYLOAD_BUILD_SEABIOS
+	depends on PAYLOAD_SEABIOS
 	default 7
 endif
