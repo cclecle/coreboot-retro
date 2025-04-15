@@ -110,20 +110,20 @@ DefinitionBlock (
 				Package (0x04) { 0x0002FFFF, 2, LNKC, 0 },
 				Package (0x04) { 0x0002FFFF, 3, LNKD, 0 },
 
-				Package (0x04) { 0x000AFFFF, 0, LNKC, 0 },
-				Package (0x04) { 0x000AFFFF, 1, LNKD, 0 },
-				Package (0x04) { 0x000AFFFF, 2, LNKA, 0 },
-				Package (0x04) { 0x000AFFFF, 3, LNKB, 0 },
+				Package (0x04) { 0x0010FFFF, 0, LNKC, 0 },
+				Package (0x04) { 0x0010FFFF, 1, LNKD, 0 },
+				Package (0x04) { 0x0010FFFF, 2, LNKA, 0 },
+				Package (0x04) { 0x0010FFFF, 3, LNKB, 0 },
 
-				Package (0x04) { 0x000CFFFF, 0, LNKB, 0 },
-				Package (0x04) { 0x000CFFFF, 1, LNKC, 0 },
-				Package (0x04) { 0x000CFFFF, 2, LNKD, 0 },
-				Package (0x04) { 0x000CFFFF, 3, LNKA, 0 },
+				Package (0x04) { 0x0012FFFF, 0, LNKB, 0 },
+				Package (0x04) { 0x0012FFFF, 1, LNKC, 0 },
+				Package (0x04) { 0x0012FFFF, 2, LNKD, 0 },
+				Package (0x04) { 0x0012FFFF, 3, LNKA, 0 },
 
-				Package (0x04) { 0x000EFFFF, 0, LNKA, 0 },
-				Package (0x04) { 0x000EFFFF, 1, LNKB, 0 },
-				Package (0x04) { 0x000EFFFF, 2, LNKC, 0 },
-				Package (0x04) { 0x000EFFFF, 3, LNKD, 0 },
+				Package (0x04) { 0x0014FFFF, 0, LNKA, 0 },
+				Package (0x04) { 0x0014FFFF, 1, LNKB, 0 },
+				Package (0x04) { 0x0014FFFF, 2, LNKC, 0 },
+				Package (0x04) { 0x0014FFFF, 3, LNKD, 0 },
 			})
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
