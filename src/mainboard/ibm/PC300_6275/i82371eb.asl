@@ -5,7 +5,7 @@
 /* Declares assorted devices that fall under this southbridge. */
 Device (PX40)
 {
-	Name(_ADR, 0x00020000)
+	Name(_ADR, 0x00020000) // Device 2, function 0 on bus 0
 	OperationRegion (PIRQ, PCI_Config, 0x60, 0x04)
 	Field (PIRQ, ByteAcc, NoLock, Preserve)
 	{
@@ -18,7 +18,7 @@ Device (PX40)
 
 Device (PX43)
 {
-	Name (_ADR, 0x00020003)
+	Name (_ADR, 0x00020003) // Device 2, function 3 on bus 0
 
 	Method (_CRS, 0, NotSerialized)
 	{
@@ -34,11 +34,11 @@ Device (PX43)
 }
 
 
-OperationRegion (S1XX, PCI_Config, 0xB2, 0x01)
-Field (S1XX, ByteAcc, NoLock, Preserve)
-{
-	FXS1,   8
-}
+//OperationRegion (S1XX, SystemIO, 0xB2, 0x01) //0xB2 is GPIO... on PCI config space :-/
+//Field (S1XX, ByteAcc, NoLock, Preserve)
+//{
+//	FXS1,   8
+//}
 
 /* PNP Motherboard Resources */
 Device (SYSR)
@@ -51,20 +51,20 @@ Device (SYSR)
 		{
 			/* PIIX4E ports */
 			/* Aliased DMA ports */
-			IO (Decode16, 0x0010, 0x0010, 0x01, 0x10, )
+			IO (Decode16, 0x0010, 0x0010, 0x01, 0x10, ) // OK
 			/* Aliased PIC ports */
-			IO (Decode16, 0x0022, 0x0022, 0x01, 0x1E, )
+			IO (Decode16, 0x0022, 0x0022, 0x01, 0x1E, ) // OK but overlap on 2 byte after each blocks
 			/* Aliased timer ports */
-			IO (Decode16, 0x0050, 0x0050, 0x01, 0x04, )
-			IO (Decode16, 0x0062, 0x0062, 0x01, 0x02, )
-			IO (Decode16, 0x0065, 0x0065, 0x01, 0x0B, )
-			IO (Decode16, 0x0074, 0x0074, 0x01, 0x0C, )
-			IO (Decode16, 0x0091, 0x0091, 0x01, 0x03, )
-			IO (Decode16, 0x00A2, 0x00A2, 0x01, 0x1E, )
-			IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, )
-			IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, )
-			IO (Decode16, 0x03F0, 0x03F0, 0x01, 0x02, )
-			IO (Decode16, 0x04D0, 0x04D0, 0x01, 0x02, )
+			IO (Decode16, 0x0050, 0x0050, 0x01, 0x04, ) // OK
+			IO (Decode16, 0x0062, 0x0062, 0x01, 0x02, ) // Ok but overlap on 1 byte after each blocks
+			IO (Decode16, 0x0065, 0x0065, 0x01, 0x0B, ) // also overlaps
+			IO (Decode16, 0x0074, 0x0074, 0x01, 0x0C, ) // ok but missed some before
+			IO (Decode16, 0x0091, 0x0091, 0x01, 0x03, ) // missed 90 ? 92 masked but not written in the doc, and why not masking 94+ ?
+			IO (Decode16, 0x00A2, 0x00A2, 0x01, 0x1E, ) // This probably mask APM Control and Status
+			//IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, ) // ??
+			//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // ??
+			IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, ) // ?? was 3F0, assuming its super IO ? So switched to 3F0
+			IO (Decode16, 0x04D0, 0x04D0, 0x01, 0x02, ) // mask INTC-1 -2 Edge/Level control
 		})
 		Return (BUF1)
 	}
