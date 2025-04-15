@@ -3,13 +3,12 @@
 #include <southbridge/intel/i82371eb/i82371eb.h>
 #include <acpi/acpi.h>
 
-#undef SUPERIO_CHIP_NAME
-#define SUPERIO_CHIP_NAME SMSC37C67X
-#include <superio/acpi/pnp.asl>
 
+#undef SUPERIO_CHIP_NAME
 #undef SUPERIO_KBC_LDN
 #undef SUPERIO_KBC_PS2M
 #undef SUPERIO_KBC_PS2LDN
+#define SUPERIO_CHIP_NAME SMSC37C67X
 #define SUPERIO_KBC_LDN 5
 #define SUPERIO_KBC_PS2M 1
 #include <superio/acpi/pnp_kbc.asl>
