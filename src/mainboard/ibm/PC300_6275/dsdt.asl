@@ -129,16 +129,46 @@ DefinitionBlock (
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
 			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
 
-			#undef SUPERIO_CHIP_NAME
-			#define SUPERIO_CHIP_NAME SMSC37C67X
-			#include <superio/acpi/pnp.asl>
 
-			#undef SUPERIO_KBC_LDN
-			#undef SUPERIO_KBC_PS2M
-			#undef SUPERIO_KBC_PS2LDN
-			#define SUPERIO_KBC_LDN 5
-			#define SUPERIO_KBC_PS2M 1
-			#include <superio/acpi/pnp_kbc.asl>
+			Device(SIO)
+			{
+				Name (_HID, EisaId("PNP0A05"))
+				Name (_UID, 0)
+				Device (PS2K)		// Keyboard
+				{
+					Name (_UID, 0)
+					Name (_HID, EISAID("PNP0303"))
+					Name (_CID, EISAID("PNP030B"))
+
+					Method (_STA, 0, NotSerialized) {
+						Return (0x0F)
+					}
+
+					Name (_CRS, ResourceTemplate()
+					{
+						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
+						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
+						IRQ (Edge, ActiveHigh, Exclusive) {1}
+					})
+				}
+				Device (PS2M)		// Mouse
+				{
+					Name (_UID, 0)
+					Name (_HID, EISAID("PNP0F13"))
+
+					Method (_STA, 0, NotSerialized) {
+						Return (0x0F)
+					}
+
+					Name (_CRS, ResourceTemplate()
+					{
+						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
+						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
+						IRQ (Edge, ActiveHigh, Exclusive) {12}
+					})
+				}
+			}
+
 		}
 	}
 
