@@ -12,7 +12,7 @@
 #undef SUPERIO_KBC_PS2LDN
 #define SUPERIO_KBC_LDN 5
 #define SUPERIO_KBC_PS2M 1
-//#include <superio/acpi/pnp_kbc.asl>
+#include <superio/acpi/pnp_kbc.asl>
 
 
 DefinitionBlock (
