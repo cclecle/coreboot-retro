@@ -58,7 +58,7 @@ void i82371eb_early_init(void);
 
 /* SMBus */
 #define SMBBA		0x90	/* SMBus base address */
-#define   SMBUS_IO_BASE	0x0f00
+#define   SMBUS_IO_BASE	0xfe00
 #define SMBHSTCFG	0xd2	/* SMBus host configuration */
 
 /* Power management (ACPI) I/O ports, offset from PM_IO_BASE below */
@@ -109,7 +109,7 @@ void i82371eb_early_init(void);
 
 /* Power management (ACPI) PCI registers */
 #define PMBA		0x40	/* Power management base address */
-#define   DEFAULT_PMBASE	0xe400
+#define   DEFAULT_PMBASE	0xfd00
 #define   PM_IO_BASE DEFAULT_PMBASE
 #define DEVRESA		0x5c	/* Device resource A */
 #define DEVRESB		0x60	/* Device resource B */
