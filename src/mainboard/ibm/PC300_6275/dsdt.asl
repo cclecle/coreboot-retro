@@ -4,16 +4,6 @@
 #include <acpi/acpi.h>
 
 
-#undef SUPERIO_CHIP_NAME
-#undef SUPERIO_KBC_LDN
-#undef SUPERIO_KBC_PS2M
-#undef SUPERIO_KBC_PS2LDN
-#define SUPERIO_CHIP_NAME SMSC37C67X
-#define SUPERIO_KBC_LDN 5
-#define SUPERIO_KBC_PS2M 1
-#include <superio/acpi/pnp_kbc.asl>
-
-
 DefinitionBlock (
 	"dsdt.aml",
 	"DSDT",
@@ -138,6 +128,15 @@ DefinitionBlock (
 			#include <northbridge/intel/i440bx/acpi/sb_pci0_crs.asl>
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
 			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
+
+			#undef SUPERIO_CHIP_NAME
+			#undef SUPERIO_KBC_LDN
+			#undef SUPERIO_KBC_PS2M
+			#undef SUPERIO_KBC_PS2LDN
+			#define SUPERIO_CHIP_NAME SMSC37C67X
+			#define SUPERIO_KBC_LDN 5
+			#define SUPERIO_KBC_PS2M 1
+			#include <superio/acpi/pnp_kbc.asl>
 		}
 	}
 
