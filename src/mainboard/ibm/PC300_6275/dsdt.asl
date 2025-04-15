@@ -3,6 +3,10 @@
 #include <southbridge/intel/i82371eb/i82371eb.h>
 #include <acpi/acpi.h>
 
+#undef SUPERIO_CHIP_NAME
+#define SUPERIO_CHIP_NAME SMSC37C67X
+#include <superio/acpi/pnp.asl>
+
 DefinitionBlock (
 	"dsdt.aml",
 	"DSDT",
