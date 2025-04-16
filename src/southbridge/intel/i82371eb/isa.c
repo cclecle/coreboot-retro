@@ -6,6 +6,7 @@
 #include <device/pci.h>
 #include <device/pci_ops.h>
 #include <device/pci_ids.h>
+#include "option.h"
 #include <pc80/isa-dma.h>
 #include <pc80/mc146818rtc.h>
 #include <arch/ioapic.h>
@@ -15,7 +16,8 @@
 #endif
 #include "i82371eb.h"
 #include "chip.h"
-#include "option.h"
+
+#define NMI_OFF 0
 
 static void isa_init(struct device *dev)
 {
