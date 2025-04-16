@@ -54,10 +54,10 @@ void bootblock_early_southbridge_init(void)
 
 
 	/* Set up NMI on errors. */
-	reg8 = inb(0x61);
-	reg8 &= 0x0f;		/* Higher Nibble must be 0 */
-	reg8 &= ~(1 << 3);	/* IOCHK# NMI Enable */
-	reg8 |= (1 << 2); 	/* PCI SERR# Disable for now */
-	outb(reg8, 0x61);
+	//reg8 = inb(0x61);
+	//reg8 &= 0x0f;		/* Higher Nibble must be 0 */
+	//reg8 &= ~(1 << 3);	/* IOCHK# NMI Enable */
+	//reg8 |= (1 << 2); 	/* PCI SERR# Disable for now */
+	//outb(reg8, 0x61);
 
 }

@@ -20,11 +20,33 @@ static void isa_init(struct device *dev)
 {
 	u32 reg32;
 	u16 _reg16;
+	u16 reg16;
 	u8 _reg8;
+	u8 reg8;
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
 
-	_reg16 = pci_read_config16(dev, XBCS);
-	printk(BIOS_DEBUG, "XBCS=%d\n",_reg16);
+
+	/* Set up NMI on errors. */
+	reg8 = inb(0x61);
+	reg8 &= 0x0f;		/* Higher Nibble must be 0 */
+	reg8 &= ~(1 << 3);	/* IOCHK# NMI Enable */
+	// reg8 &= ~(1 << 2);	/* PCI SERR# Enable */
+	reg8 |= (1 << 2); /* PCI SERR# Disable for now */
+	outb(reg8, 0x61);
+
+	reg8 = inb(0x70);
+	const unsigned int nmi_option = get_uint_option("nmi", NMI_OFF);
+	if (nmi_option) {
+		printk(BIOS_INFO, "NMI sources enabled.\n");
+		reg8 &= ~(1 << 7);	/* Set NMI. */
+	} else {
+		printk(BIOS_INFO, "NMI sources disabled.\n");
+		reg8 |= (1 << 7);	/* Disable NMI. */
+	}
+	outb(reg8, 0x70);
+
+	//_reg16 = pci_read_config16(dev, XBCS);
+	//printk(BIOS_DEBUG, "XBCS=%d\n",_reg16);
 	_reg8 = pci_read_config8(dev, RTCCFG);
 	printk(BIOS_DEBUG, "RTCCFG=%d\n",_reg8);
 
@@ -58,8 +80,8 @@ static void isa_init(struct device *dev)
 	printk(BIOS_DEBUG, "!!! 4\n");
 	reg32 |= ISA;		/* Select ISA */
 	printk(BIOS_DEBUG, "!!! 5\n");
-	//reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
-	//reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
+	reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
+	reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
 	reg32 = ONOFF(sb->serirq_enable, 		reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
 	printk(BIOS_DEBUG, "!!! 6\n");
 	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* GPO1516 or SUSB/SUSC functionality*/

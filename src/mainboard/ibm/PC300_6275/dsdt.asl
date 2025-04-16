@@ -129,7 +129,7 @@ DefinitionBlock (
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
 			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
 
-
+			/*
 			Device(SIO)
 			{
 				Name (_HID, EisaId("PNP0A05"))
@@ -168,6 +168,7 @@ DefinitionBlock (
 					})
 				}
 			}
+			*/
 
 		}
 	}
