@@ -30,7 +30,7 @@ static pci_devfn_t pci_locate_device(unsigned int pci_id, pci_devfn_t dev)
 void bootblock_early_southbridge_init(void)
 {
 	u16 reg16;
-	u8 reg8;
+	//u8 reg8;
 	/*
 	 * Note: The Intel 82371AB/EB/MB ISA device can be on different
 	 * PCI bus:device.function locations on different boards.
