@@ -15,12 +15,13 @@
 #endif
 #include "i82371eb.h"
 #include "chip.h"
+#include "option.h"
 
 static void isa_init(struct device *dev)
 {
 	u32 reg32;
 	u16 _reg16;
-	u16 reg16;
+	//u16 reg16;
 	u8 _reg8;
 	u8 reg8;
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
