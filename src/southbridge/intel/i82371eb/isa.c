@@ -69,33 +69,21 @@ static void isa_init(struct device *dev)
 	 * bus, which is a subset of ISA. We select the full ISA bus here.
 	 */
 	reg32 = pci_read_config32(dev, GENCFG);
-	printk(BIOS_DEBUG, "!!! 4\n");
 	reg32 |= ISA;		/* Select ISA */
-	printk(BIOS_DEBUG, "!!! 5\n");
 	reg32 = ONOFF(sb->positive_decode_enable, 	reg32, POSITIVE_DECODE);/* Positive or Substractive Decode */
 	reg32 = ONOFF(sb->pnp_decode_enable, 		reg32, PNP_DECODE);	/* Enable PnP address positive decode */
 	reg32 = ONOFF(sb->serirq_enable, 		reg32, GPI7SERIRQ);	/* GPI7 or Serial IRQ function*/
-	printk(BIOS_DEBUG, "!!! 6\n");
 	reg32 = ONOFF(sb->gpo1516_enable, 		reg32, GPO1516);	/* GPO1516 or SUSB/SUSC functionality*/
-	printk(BIOS_DEBUG, "!!! 7\n");
 	reg32 = ONOFF(sb->gpo17_enable, 		reg32, GPO17);		/* GPO17 or CPU_STP functionality*/
-	printk(BIOS_DEBUG, "!!! 8\n");
 	reg32 = ONOFF(sb->gpo18_enable, 		reg32, GPO18);		/* PCI_STP or GPO18 functionality*/
-	printk(BIOS_DEBUG, "!!! 9\n");
 	reg32 = ONOFF(sb->gpo19_enable, 		reg32, GPO19);		/* ZZ or GPO19 functionality*/
-	printk(BIOS_DEBUG, "!!! 10\n");
 	reg32 = ONOFF(sb->gpo20_enable, 		reg32, GPO20);		/* SUS_STAT1 or GPO20 functionality*/
-	printk(BIOS_DEBUG, "!!! 11\n");
 	reg32 = ONOFF(sb->gpo21_enable, 		reg32, GPO21);		/* SUS_STAT2 or GPO21 functionality*/
-	printk(BIOS_DEBUG, "!!! 12\n");
 	reg32 = ONOFF(sb->gpo2223_enable, 		reg32, GPO2223);	/* GPO22/23 functionality*/
-	printk(BIOS_DEBUG, "!!! 13\n");
 	reg32 = ONOFF(sb->gpo24_enable, 		reg32, GPO24);		/* RTCCS or GPO24 functionality*/
-	printk(BIOS_DEBUG, "!!! 14\n");
 	reg32 = ONOFF(sb->gpo25_enable, 		reg32, GPO25);		/* RTCALE or GPO25 functionality*/
-	printk(BIOS_DEBUG, "!!! 15\n");
 	reg32 = ONOFF(sb->gpo26_enable, 		reg32, GPO26);		/* KBCCS or GPO26 */
-	printk(BIOS_DEBUG, "!!! 16\n");
+	reg32 = ONOFF(sb->irq8_enable, 			reg32, IRQ8_EN);	/* enable IRQ8 / disable GPI6 */
 
 	/* Enable REQ/GNT [A..C] signaling instead of GPI[2..4]/GPO[9..11] if configured*/
 	reg32 = ONOFF(sb->reqa_gnta_enable, reg32, REQAGNTA);
@@ -105,10 +93,8 @@ static void isa_init(struct device *dev)
 	reg32 = ONOFF(sb->reqc_gntc_enable, reg32, REQCGNTC);
 	printk(BIOS_DEBUG, "!!! 19\n");
 
-
 	pci_write_config32(dev, GENCFG, reg32);
 	printk(BIOS_DEBUG, "!!! 20\n");
-
 
 	/* SERIRQ*/
 	reg8 = pci_read_config8(dev, SERIRQC);
@@ -119,22 +105,30 @@ static void isa_init(struct device *dev)
 	pci_write_config8(dev, SERIRQC, reg8);
 
 	/*IRQ Rooting*/
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_write_config8(dev, PIRQRC_A));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_write_config8(dev, PIRQRC_B));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_write_config8(dev, PIRQRC_C));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_write_config8(dev, PIRQRC_D));
 	if(sb->pirqa_routing)
 	{
-		pci_write_config8(dev,PIRQRC_A,sb->pirqa_routing & 0x0f);
+		pci_write_config8(dev, PIRQRC_A, sb->pirqa_routing & 0x0f);
 	}
 	if(sb->pirqb_routing)
 	{
-		pci_write_config8(dev,PIRQRC_A,sb->pirqb_routing & 0x0f);
+		pci_write_config8(dev, PIRQRC_B, sb->pirqb_routing & 0x0f);
 	}
 	if(sb->pirqc_routing)
 	{
-		pci_write_config8(dev,PIRQRC_A,sb->pirqc_routing & 0x0f);
+		pci_write_config8(dev, PIRQRC_C, sb->pirqc_routing & 0x0f);
 	}
 	if(sb->pirqd_routing)
 	{
-		pci_write_config8(dev,PIRQRC_A,sb->pirqd_routing & 0x0f);
+		pci_write_config8(dev, PIRQRC_D, sb->pirqd_routing & 0x0f);
 	}
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_write_config8(dev, PIRQRC_A));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_write_config8(dev, PIRQRC_B));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_write_config8(dev, PIRQRC_C));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_write_config8(dev, PIRQRC_D));
 
 
 	/* Initialize ISA DMA. */

@@ -31,9 +31,10 @@ void i82371eb_early_init(void);
 #define   ISA			(1 << 0)  /* Select ISA */
 #define   POSITIVE_DECODE 	(1 << 1)  /* Positive or Substractive Decode */
 #define   PNP_DECODE 		(1 << 6)  /* Enable PnP address positive decode */
-#define   REQAGNTA		(1 << 8)	/* Select REQA/GNTA or GPI2/GPO9 functionality */
-#define   REQBGNTB		(1 << 9)	/* Select REQB/GNTB or GPI3/GPO10 functionality */
-#define	  REQCGNTC		(1 << 10)	/* Select REQC/GNTC or GPI4/GPO11 functionality */
+#define   REQAGNTA		(1 << 8)  /* Select REQA/GNTA or GPI2/GPO9 functionality */
+#define   REQBGNTB		(1 << 9)  /* Select REQB/GNTB or GPI3/GPO10 functionality */
+#define	  REQCGNTC		(1 << 10) /* Select REQC/GNTC or GPI4/GPO11 functionality */
+#define   IRQ8_EN		(1 << 14) /* Enable IRQ8 / Disable GPI6 */
 #define	  GPI7SERIRQ		(1 << 16) /* Select GPI7 input or Serial IRQ function*/
 #define   GPO1516   		(1 << 17) /* SUSB/SUSC or GPO1516 functionality*/
 #define   GPO17   		(1 << 18) /* CPU_STP or GPO17 functionality*/
