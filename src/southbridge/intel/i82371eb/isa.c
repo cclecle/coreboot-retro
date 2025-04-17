@@ -124,9 +124,9 @@ static void isa_init(struct device *dev)
 	 * Thus, we can/must only enable the IOAPIC if it actually exists,
 	 * i.e. the respective mainboard does "select IOAPIC".
 	 */
-	if (CONFIG(IOAPIC)) {
+	if (CONFIG(IOAPIC))
+	{
 		printk(BIOS_DEBUG, "!!! 22\n");
-		u16 reg16;
 		u8 ioapic_id = 2;
 
 		/* Enable IOAPIC. */
