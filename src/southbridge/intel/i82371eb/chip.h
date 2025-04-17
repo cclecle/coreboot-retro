@@ -33,6 +33,7 @@ struct southbridge_intel_i82371eb_config {
 	bool positive_decode_enable; /* Enable positive decode on the PCI bus for forwarding to ISA*/
 	bool pnp_decode_enable; /* Enable PnP address positive decode */
 	bool serirq_continuous;
+	bool irq8_enable; /* Enable IRQ8 / Disable GPI6 */
 	u8 pirqa_routing;
 	u8 pirqb_routing;
 	u8 pirqc_routing;
