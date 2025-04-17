@@ -17,8 +17,6 @@
 #include "i82371eb.h"
 #include "chip.h"
 
-#define NMI_OFF 0
-
 static void isa_init(struct device *dev)
 {
 	u32 reg32;
@@ -50,7 +48,7 @@ static void isa_init(struct device *dev)
 	outb(reg8, 0x61);
 
 	reg8 = inb(0x70);
-	const unsigned int nmi_option = get_uint_option("nmi", NMI_OFF);
+	const unsigned int nmi_option = get_uint_option("nmi", 1);
 	if (nmi_option) {
 		printk(BIOS_INFO, "NMI sources enabled.\n");
 		reg8 &= ~(1 << 7);	/* Set NMI. */

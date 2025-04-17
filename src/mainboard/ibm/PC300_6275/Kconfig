@@ -50,9 +50,9 @@ config SEABIOS_BOOTORDER_FILE
 #	depends on PAYLOAD_SEABIOS
 #	default "origin/work_300GL"
 
-#config SEABIOS_PS2_TIMEOUT
-#	int
-#	default 5000
+config SEABIOS_PS2_TIMEOUT
+	int
+	default 5000
 
 #config SEABIOS_DEBUG_LEVEL
 #	int
