@@ -129,7 +129,6 @@ DefinitionBlock (
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
 			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
 
-			/*
 			Device(SIO)
 			{
 				Name (_HID, EisaId("PNP0A05"))
@@ -154,7 +153,7 @@ DefinitionBlock (
 				Device (PS2M)		// Mouse
 				{
 					Name (_UID, 0)
-					Name (_HID, EISAID("PNP0F13"))
+					Name (_HID, EISAID("PNP0f13"))
 
 					Method (_STA, 0, NotSerialized) {
 						Return (0x0F)
@@ -168,8 +167,6 @@ DefinitionBlock (
 					})
 				}
 			}
-			*/
-
 		}
 	}
 

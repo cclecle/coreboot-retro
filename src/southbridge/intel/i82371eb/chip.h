@@ -32,6 +32,7 @@ struct southbridge_intel_i82371eb_config {
 	bool reqc_gntc_enable;  /* PCI REQC and GNTC (1) vs GPI4, GPO11 (0) */
 	bool positive_decode_enable; /* Enable positive decode on the PCI bus for forwarding to ISA*/
 	bool pnp_decode_enable; /* Enable PnP address positive decode */
+	bool serirq_continuous;
 
 	/* acpi */
 	u32 gpo; /* gpio output default */
