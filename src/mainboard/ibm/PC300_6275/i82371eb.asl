@@ -34,7 +34,7 @@ Device (PX43)
 }
 
 
-//OperationRegion (S1XX, SystemIO, 0xB2, 0x01) //0xB2 is GPIO... on PCI config space :-/
+//OperationRegion (S1XX, SystemIO, 0xB2, 0x01) //0xB2 is GPIO... on PCI config space :-/ And IDK what in IO space
 //Field (S1XX, ByteAcc, NoLock, Preserve)
 //{
 //	FXS1,   8
@@ -63,7 +63,7 @@ Device (SYSR)
 			IO (Decode16, 0x00A2, 0x00A2, 0x01, 0x1E, ) // This probably mask APM Control and Status
 			//IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, ) // ??
 			//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // ??
-			//IO (Decode16, 0x04D0, 0x04D0, 0x01, 0x02, ) // mask INTC-1 -2 Edge/Level control
+			IO (Decode16, 0x04D0, 0x04D0, 0x01, 0x02, ) // mask INTC-1 -2 Edge/Level control
 			IO (Decode16, 0xFD00, 0xFD00, 0x01, 0x40, ) // PM IOs
 			IO (Decode16, 0xFE00, 0xFE00, 0x01, 0x10, ) // SMBUS IOs
 			IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, ) // ?? was 3F0, assuming its super IO ? So switched to 3F0
@@ -71,30 +71,16 @@ Device (SYSR)
 		Return (BUF1)
 	}
 }
+
 /* 8259-compatible Programmable Interrupt Controller */
 Device (PIC)
 {
-	Name (_HID, EisaId ("PNP0000") )
+	Name (_HID, EisaId ("PNP0000"))
 	Name (_CRS, ResourceTemplate ()
 	{
-		IO (Decode16,
-			0x0020,             // Range Minimum
-			0x0020,             // Range Maximum
-			0x01,               // Alignment
-			0x1E,               // Length
-			)
-		IO (Decode16,
-			0x00A0,             // Range Minimum
-			0x00A0,             // Range Maximum
-			0x01,               // Alignment
-			0x1E,               // Length
-			)
-		IO (Decode16,
-			0x04D0,             // Range Minimum
-			0x04D0,             // Range Maximum
-			0x01,               // Alignment
-			0x02,               // Length
-			)
+		IO (Decode16, 0x0020, 0x0020, 0x01, 0x02,)
+		IO (Decode16, 0x00A0, 0x00A0, 0x01, 0x02,)
+		IRQNoFlags () {2}
 	})
 }
 

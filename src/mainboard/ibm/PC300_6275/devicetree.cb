@@ -16,15 +16,15 @@ chip northbridge/intel/i440bx		# Northbridge
 
 	register "serirq_enable" = "1"
 	register "serirq_continuous" = "1"
-	register "gpo17_enable" = "1"
-	register "gpo18_enable" = "1"
-	register "gpo19_enable" = "1"
-	register "gpo20_enable" = "1"
-	register "gpo21_enable" = "1"
-	register "gpo2223_enable" = "1"
-	register "gpo24_enable" = "1"
-	register "gpo25_enable" = "1"
-	register "gpo26_enable" = "1"
+	register "gpo17_enable" = "1"   # CPU_STP
+	register "gpo18_enable" = "1"   # PCI_STP
+	register "gpo19_enable" = "1"   # ZZ
+	register "gpo20_enable" = "1"   # SUS_STAT
+	register "gpo21_enable" = "1"   # SUS_STAT2
+	register "gpo2223_enable" = "1" # XOE_XDIR
+	register "gpo24_enable" = "1"   # RTCCS
+	register "gpo25_enable" = "1"   # RTCALE
+	register "gpo26_enable" = "1"   # XKBCCS
 	register "rtccs_rtcale_disable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
@@ -63,10 +63,10 @@ chip northbridge/intel/i440bx		# Northbridge
       register "ide1_enable" = "true"
       register "ide_legacy_enable" = "true"
       # Enable UDMA/33 for higher speed if your IDE device(s) support it.
-      register "ide0_drive0_udma33_enable" = "true"
-      register "ide0_drive1_udma33_enable" = "true"
-      register "ide1_drive0_udma33_enable" = "true"
-      register "ide1_drive1_udma33_enable" = "true"
+      # register "ide0_drive0_udma33_enable" = "true"
+      # register "ide0_drive1_udma33_enable" = "true"
+      # register "ide1_drive0_udma33_enable" = "true"
+      # register "ide1_drive1_udma33_enable" = "true"
       register "thrm_polarity" = "1"
       register "lid_polarity" = "1"
     end
