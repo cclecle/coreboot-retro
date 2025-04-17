@@ -4,7 +4,7 @@ Name(IRQB, ResourceTemplate(){
 })
 
 Name(IRQP, ResourceTemplate(){
-	IRQ(Level,ActiveLow,Shared){3, 4, 5, 6, 7, 10, 11, 12, 14, 15}
+	IRQ(Level,ActiveLow,Shared){3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15}
 })
 
 /* adapted from ma78gm/dsdt.asl */
