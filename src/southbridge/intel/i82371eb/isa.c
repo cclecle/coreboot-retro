@@ -105,10 +105,10 @@ static void isa_init(struct device *dev)
 	pci_write_config8(dev, SERIRQC, reg8);
 
 	/*IRQ Rooting*/
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_write_config8(dev, PIRQRC_A));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_write_config8(dev, PIRQRC_B));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_write_config8(dev, PIRQRC_C));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_write_config8(dev, PIRQRC_D));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_read_config8(dev, PIRQRC_A));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_read_config8(dev, PIRQRC_B));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_read_config8(dev, PIRQRC_C));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_read_config8(dev, PIRQRC_D));
 	if(sb->pirqa_routing)
 	{
 		pci_write_config8(dev, PIRQRC_A, sb->pirqa_routing & 0x0f);
@@ -125,10 +125,10 @@ static void isa_init(struct device *dev)
 	{
 		pci_write_config8(dev, PIRQRC_D, sb->pirqd_routing & 0x0f);
 	}
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_write_config8(dev, PIRQRC_A));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_write_config8(dev, PIRQRC_B));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_write_config8(dev, PIRQRC_C));
-	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_write_config8(dev, PIRQRC_D));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_A: %d\n",pci_read_config8(dev, PIRQRC_A));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_B: %d\n",pci_read_config8(dev, PIRQRC_B));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_C: %d\n",pci_read_config8(dev, PIRQRC_C));
+	printk(BIOS_DEBUG, "!!! YYY PIRQRC_D: %d\n",pci_read_config8(dev, PIRQRC_D));
 
 
 	/* Initialize ISA DMA. */
