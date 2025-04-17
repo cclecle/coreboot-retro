@@ -22,12 +22,24 @@
 static void isa_init(struct device *dev)
 {
 	u32 reg32;
-	u16 _reg16;
-	//u16 reg16;
-	u8 _reg8;
+	u16 reg16;
 	u8 reg8;
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
 
+	printk(BIOS_DEBUG, "!!! 1\n");
+
+	if(sb->rtccs_rtcale_disable)
+	{
+		reg16 = pci_read_config16(dev, XBCS);
+		reg16 &= ~(RTCCS_RTCALE_ENABLE);
+		pci_write_config16(dev, XBCS, reg16);
+	}
+	reg16 = pci_read_config16(dev, XBCS);
+	printk(BIOS_DEBUG, "XBCS=%d\n",reg16);
+	printk(BIOS_DEBUG, "!!! 2\n");
+
+	/* Initialize the real time clock (RTC). */
+	cmos_init(0);
 
 	/* Set up NMI on errors. */
 	reg8 = inb(0x61);
@@ -47,27 +59,6 @@ static void isa_init(struct device *dev)
 		reg8 |= (1 << 7);	/* Disable NMI. */
 	}
 	outb(reg8, 0x70);
-
-	//_reg16 = pci_read_config16(dev, XBCS);
-	//printk(BIOS_DEBUG, "XBCS=%d\n",_reg16);
-	_reg8 = pci_read_config8(dev, RTCCFG);
-	printk(BIOS_DEBUG, "RTCCFG=%d\n",_reg8);
-
-	printk(BIOS_DEBUG, "!!! 1\n");
-
-	if(sb->rtccs_rtcale_disable)
-	{
-		u16 reg16;
-		reg16 = pci_read_config16(dev, XBCS);
-		reg16 &= ~(RTCCS_RTCALE_ENABLE);
-		pci_write_config16(dev, XBCS, reg16);
-	}
-	_reg16 = pci_read_config16(dev, XBCS);
-	printk(BIOS_DEBUG, "XBCS=%d\n",_reg16);
-	printk(BIOS_DEBUG, "!!! 2\n");
-
-	/* Initialize the real time clock (RTC). */
-	cmos_init(0);
 
 	/*
 	 * Enable special cycles, needed for soft poweroff.
