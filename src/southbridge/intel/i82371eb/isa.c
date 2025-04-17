@@ -109,12 +109,32 @@ static void isa_init(struct device *dev)
 	pci_write_config32(dev, GENCFG, reg32);
 	printk(BIOS_DEBUG, "!!! 20\n");
 
+
+	/* SERIRQ*/
 	reg8 = pci_read_config8(dev, SERIRQC);
 	printk(BIOS_DEBUG, "!!! 20 reg8 %d\n",reg8);
 	reg8 = ONOFF(sb->serirq_enable, 		reg8, SERIRQ_ENABLE);
 	reg8 = ONOFF(sb->serirq_continuous, 		reg8, SERIRQ_CONTINUOUS);
 	printk(BIOS_DEBUG, "!!! 20 reg32 %d\n",reg8);
 	pci_write_config8(dev, SERIRQC, reg8);
+
+	/*IRQ Rooting*/
+	if(sb->pirqa_routing)
+	{
+		pci_write_config8(dev,PIRQRC_A,sb->pirqa_routing & 0x0f);
+	}
+	if(sb->pirqb_routing)
+	{
+		pci_write_config8(dev,PIRQRC_A,sb->pirqb_routing & 0x0f);
+	}
+	if(sb->pirqc_routing)
+	{
+		pci_write_config8(dev,PIRQRC_A,sb->pirqc_routing & 0x0f);
+	}
+	if(sb->pirqd_routing)
+	{
+		pci_write_config8(dev,PIRQRC_A,sb->pirqd_routing & 0x0f);
+	}
 
 
 	/* Initialize ISA DMA. */

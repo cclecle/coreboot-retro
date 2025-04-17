@@ -9,6 +9,11 @@ chip northbridge/intel/i440bx		# Northbridge
 #	register "pnp_decode_enable" = "1"
 #	register "positive_decode_enable" = "1"
 
+	register "pirqa_routing" = "0x09" # IRQ9
+	register "pirqb_routing" = "0x0a" # IRQ10
+	register "pirqc_routing" = "0x0b" # IRQ11
+	register "pirqd_routing" = "0x05" # IRQ5
+
 	register "serirq_enable" = "1"
 	register "serirq_continuous" = "1"
 	register "gpo17_enable" = "1"
