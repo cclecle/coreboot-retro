@@ -56,8 +56,8 @@ config SEABIOS_PS2_TIMEOUT
 	int
 	default 5000
 
-#config SEABIOS_DEBUG_LEVEL
-#	int
-#	depends on PAYLOAD_SEABIOS
-#	default 7
+config SEABIOS_DEBUG_LEVEL
+	int
+	depends on PAYLOAD_SEABIOS
+	default 16
 endif
