@@ -54,7 +54,7 @@ static void ide_init_enable(struct device *dev)
 		printk(BIOS_DEBUG, "IDE: Access to legacy IDE ports: %s\n",
 			     conf->ide_legacy_enable ? "on" : "off");
 		// Try to fix base address
-		pci_write_config32(dev,0x20,0x0000FFD1);
+		pci_write_config32(dev,0x20,0x0000FFF1);
 	}
 }
 

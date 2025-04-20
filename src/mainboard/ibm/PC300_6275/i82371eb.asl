@@ -3,9 +3,11 @@
 #include "southbridge/intel/i82371eb/i82371eb.h"
 
 /* Declares assorted devices that fall under this southbridge. */
+
+// Device 2, function 0 on bus 0 (PCI / ISA Bridge)
 Device (PX40)
 {
-	Name(_ADR, 0x00020000) // Device 2, function 0 on bus 0
+	Name(_ADR, 0x00020000)
 	OperationRegion (PIRQ, PCI_Config, 0x60, 0x04)
 	Field (PIRQ, ByteAcc, NoLock, Preserve)
 	{
@@ -16,10 +18,10 @@ Device (PX40)
 	}
 }
 
+// Device 2, function 3 on bus 0 (Power Management)
 Device (PX43)
 {
-	Name (_ADR, 0x00020003) // Device 2, function 3 on bus 0
-
+	Name (_ADR, 0x00020003)
 	Method (_CRS, 0, NotSerialized)
 	{
 		Name (BUF1, ResourceTemplate ()
@@ -28,6 +30,21 @@ Device (PX43)
 			IO (Decode16, PM_IO_BASE, PM_IO_BASE, 0x01, 0x40, )
 			/* SMBus register ports */
 			IO (Decode16, SMBUS_IO_BASE, SMBUS_IO_BASE, 0x01, 0x10, )
+		})
+		Return (BUF1)
+	}
+}
+
+// Device 2, function 1 on bus 0 (IDE controller)
+Device (PX41)
+{
+	Name (_ADR, 0x00020003)
+	Method (_CRS, 0, NotSerialized)
+	{
+		Name (BUF1, ResourceTemplate ()
+		{
+			IO (Decode16, 0xfff0, 0xfff0, 0x01, 0x08, ) // Primary IDE channel
+			IO (Decode16, 0xfff8, 0xfff8, 0x01, 0x08, ) // Secondary IDE channel
 		})
 		Return (BUF1)
 	}
