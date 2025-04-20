@@ -2,7 +2,7 @@ chip northbridge/intel/i440bx		# Northbridge
   device cpu_cluster 0 on end		# APIC cluster
   device domain 0 on			# PCI domain
     device pci 0.0 on end		# Host bridge
-    device pci 1.0 on end		# PCI/AGP bridge
+    device pci 1.0 off end		# PCI/AGP bridge
     chip southbridge/intel/i82371eb	# Southbridge
       device pci 2.0 on			# ISA bridge
 # one of the following two is preventing SERIAL output when(ish) SeaBios starts
