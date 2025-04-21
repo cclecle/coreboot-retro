@@ -25,16 +25,27 @@ static void isa_init(struct device *dev)
 	struct southbridge_intel_i82371eb_config *sb = dev->chip_info;
 
 	printk(BIOS_DEBUG, "!!! 1\n");
-
-	if(sb->rtccs_rtcale_disable)
-	{
-		reg16 = pci_read_config16(dev, XBCS);
-		reg16 &= ~(RTCCS_RTCALE_ENABLE);
-		pci_write_config16(dev, XBCS, reg16);
-	}
 	reg16 = pci_read_config16(dev, XBCS);
 	printk(BIOS_DEBUG, "XBCS=%d\n",reg16);
+
+	reg16 = pci_read_config16(dev, XBCS);
+	if(sb->rtccs_rtcale_disable)
+	{
+		reg16 &= ~(RTCCS_RTCALE_ENABLE);
+	}
+	if(sb->kbccs_disable)
+	{
+		reg16 &= ~(KBCCS_ENABLE);
+	}
+	if(sb->mousefunction_enable)
+	{
+		reg16 |= MOUSEFUNC_ENABLE;
+	}
+	pci_write_config16(dev, XBCS, reg16);
+
 	printk(BIOS_DEBUG, "!!! 2\n");
+	reg16 = pci_read_config16(dev, XBCS);
+	printk(BIOS_DEBUG, "XBCS=%d\n",reg16);
 
 	/* Initialize the real time clock (RTC). */
 	cmos_init(0);

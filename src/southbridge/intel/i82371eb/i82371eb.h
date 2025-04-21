@@ -24,6 +24,7 @@ void i82371eb_early_init(void);
 #define   RTCCS_RTCALE_ENABLE	(1 << 0)  /* */
 #define   KBCCS_ENABLE		(1 << 1)  /* */
 #define   WRITE_PROTECT_ENABLE	(1 << 2)  /* Write Protect Enable */
+#define   MOUSEFUNC_ENABLE	(1 << 3)  /* */
 #define   LOWER_BIOS_ENABLE	(1 << 6)  /* Lower BIOS Enable */
 #define   EXT_BIOS_ENABLE	(1 << 7)  /* Extended BIOS Enable */
 #define   EXT_BIOS_ENABLE_1MB	(1 << 9)  /* 1-Meg Extended BIOS Enable */

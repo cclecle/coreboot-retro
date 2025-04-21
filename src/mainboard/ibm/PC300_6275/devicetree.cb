@@ -26,6 +26,8 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "gpo25_enable" = "1"   # RTCALE
 	register "gpo26_enable" = "1"   # XKBCCS
 	register "rtccs_rtcale_disable" = "1"
+	register "kbccs_disable" = "1"
+	register "mousefunction_enable" = "1"
         register "gpo" = "0x65ffbfff"
 	chip superio/smsc/smscsuperio
 		device pnp 370.0 on		# Floppy
