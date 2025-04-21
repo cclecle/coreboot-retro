@@ -22,32 +22,22 @@ Device (PX40)
 Device (PX43)
 {
 	Name (_ADR, 0x00020003)
-	Method (_CRS, 0, NotSerialized)
-	{
-		Name (BUF1, ResourceTemplate ()
-		{
-			/* PM register ports */
-			FixedIO (PM_IO_BASE,  0x40)
-			/* SMBus register ports */
-			FixedIO (SMBUS_IO_BASE, 0x10)
-		})
-		Return (BUF1)
-	}
+	Name (_CRS, ResourceTemplate () {
+		/* PM register ports */
+		FixedIO (PM_IO_BASE,  0x40)
+		/* SMBus register ports */
+		FixedIO (SMBUS_IO_BASE, 0x10)
+	})
 }
 
 // Device 2, function 1 on bus 0 (IDE controller)
 Device (PX41)
 {
 	Name (_ADR, 0x00020001)
-	Method (_CRS, 0, NotSerialized)
-	{
-		Name (BUF1, ResourceTemplate ()
-		{
-			FixedIO (0xfff0, 0x08) // Primary IDE channel
-			FixedIO (0xfff8, 0x08) // Secondary IDE channel
-		})
-		Return (BUF1)
-	}
+	Name (_CRS, ResourceTemplate () {
+		FixedIO (0xfff0, 0x08) // Primary IDE channel
+		FixedIO (0xfff8, 0x08) // Secondary IDE channel
+	})
 }
 
 //Seems to be APMC related on IO space (for SMI generation maybe)
@@ -63,40 +53,37 @@ Device (SYSR)
 {
 	Name (_HID, EisaId ("PNP0C02"))
 	Name (_UID, 0x02)
-	Method (_CRS, 0, NotSerialized)
-	{
-		Name (BUF1, ResourceTemplate ()
-		{
-			/* PIIX4E ports */
-			/* Aliased DMA ports */
-			FixedIO (0x0010, 0x10) // OK
-			/* Aliased PIC ports */
-			FixedIO (0x0022, 0x1E) // OK but overlap on 2 byte after each blocks
-			/* Aliased timer ports */
-			FixedIO (0x0050, 0x04) // OK
-			FixedIO (0x0062, 0x02) // Ok but overlap on 1 byte after each blocks
-			FixedIO (0x0065, 0x0B) // also overlaps
-			FixedIO (0x0074, 0x0C) // ok but missed some before
-			FixedIO (0x0091, 0x03) // missed 90 ? 92 masked but not written in the doc, and why not masking 94+ ?
-			FixedIO (0x00A2, 0x1E) // This probably mask APM Control and Status
-			FixedIO (0x04D0, 0x02) // mask INTC-1 -2 Edge/Level control
-			FixedIO (0xFD00, 0x40) // PM IOs
-			FixedIO (0xFE00, 0x10) // SMBUS IOs
+	Name (_CRS ,ResourceTemplate () {
+		/* PIIX4E ports */
+		/* Aliased DMA ports */
+		FixedIO (0x0010, 0x10) // OK
+		/* Aliased PIC ports */
+		FixedIO (0x0022, 0x1E) // OK but overlap on 2 byte after each blocks
+		/* Aliased timer ports */
+		FixedIO (0x0050, 0x04) // OK
+		FixedIO (0x0062, 0x02) // Ok but overlap on 1 byte after each blocks
+		FixedIO (0x0065, 0x0B) // also overlaps
+		FixedIO (0x0074, 0x0C) // ok but missed some before
+		FixedIO (0x0091, 0x03) // missed 90 ? 92 masked but not written in the doc, and why not masking 94+ ?
+		FixedIO (0x00A2, 0x1E) // This probably mask APM Control and Status
+		//FixedIO (0x04D0, 0x02) // mask INTC-1 -2 Edge/Level control
+		IO (Decode16, 0x04D0, 0x04D0, 1, 0x02)
+		//FixedIO (0xFD00, 0x40) // PM IOs
+		IO (Decode16, 0xFD00, 0xFD00, 1, 0x40)
+		//FixedIO (0xFE00, 0x10) // SMBUS IOs
+		IO (Decode16, 0xFE00, 0xFE00, 1, 0x10)
 
-			// Unknown ones
-			IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, ) // not sure... seems to be a lecacy range (kept for now, who knows !)
-			//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // probably from p2b W83781D  hardware monitor, commented out
-		})
-		Return (BUF1)
-	}
+		// Unknown ones
+		IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, ) // not sure... seems to be a lecacy range (kept for now, who knows !)
+		//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // probably from p2b W83781D  hardware monitor, commented out
+	})
 }
 
 /* 8259-compatible Programmable Interrupt Controller */
 Device (PIC)
 {
 	Name (_HID, EisaId ("PNP0000"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		FixedIO (0x0020, 0x02)
 		FixedIO (0x00A0, 0x02)
 		IRQNoFlags () {2}
@@ -108,8 +95,7 @@ Device (PIC)
 Device (DMA1)
 {
 	Name (_HID, EisaId ("PNP0200"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		DMA (Compatibility, BusMaster, Transfer8,) {4}
 		FixedIO (0x0000, 0x10)
 		FixedIO (0x0080, 0x11)
@@ -122,8 +108,7 @@ Device (DMA1)
 Device (TMR)
 {
 	Name (_HID, EisaId ("PNP0100"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		FixedIO (0x0040, 0x04)
 		IRQNoFlags () {0}
 	})
@@ -133,8 +118,7 @@ Device (TMR)
 Device (RTC)
 {
 	Name (_HID, EisaId ("PNP0B00"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		FixedIO (0x0070, 0x04)
 		IRQNoFlags () {8}
 	})
@@ -143,8 +127,7 @@ Device (RTC)
 Device (SPKR)
 {
 	Name (_HID, EisaId ("PNP0800"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		FixedIO (0x0061, 0x01)
 	})
 }
@@ -153,8 +136,7 @@ Device (SPKR)
 Device (COPR)
 {
 	Name (_HID, EisaId ("PNP0C04"))
-	Name (_CRS, ResourceTemplate ()
-	{
+	Name (_CRS, ResourceTemplate () {
 		FixedIO (0x00F0, 0x10)
 		IRQNoFlags () {13}
 	})

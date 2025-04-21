@@ -39,7 +39,7 @@ DefinitionBlock (
 	Name (\_S1, Package () { 0x03, 0x03, 0x00, 0x00})
 	Name (\_S5, Package () { 0x00, 0x00, 0x00, 0x00})
 
-	OperationRegion (GPOB, SystemIO, DEFAULT_PMBASE+DEVCTL, 0x10)
+	OperationRegion (GPOB, SystemIO, DEFAULT_PMBASE + DEVCTL, 0x10)
 	Field (GPOB, ByteAcc, NoLock, Preserve) {
 		Offset (0x03),
 		TO12,   1, /* Device trap 12 */
@@ -128,20 +128,15 @@ DefinitionBlock (
 				Name (_UID, 0)
 
 				// SIO config address advertise to OS
-				Method (_CRS) {
-					/* Announce the used i/o ports to the OS */
-					Return (ResourceTemplate () {
-						FixedIO (0x0370, 0x02)
-					})
-				}
+				Name (_CRS, ResourceTemplate () {
+					FixedIO (0x0370, 0x02)
+				})
+
 
 				// Floppy controller
 				Device (FDC0) {
 					Name (_HID, EISAID ("PNP0700"))
-
-					Method (_STA, 0, NotSerialized) {
-						Return (0x0F)
-					}
+					Name (_STA, 0x0F)
 					Name (_CRS, ResourceTemplate() {
 						FixedIO (0x03F0, 0x06)
 						IRQNoFlags () {6}
@@ -152,32 +147,21 @@ DefinitionBlock (
 				Device (PS2K) {
 					Name (_HID, EISAID("PNP0303"))
 					Name (_CID, EISAID("PNP030B"))
-
-					Method (_STA, 0, NotSerialized) {
-						Return (0x0F)
-					}
-					Method (_CRS, 0, Serialized) {
-						Name (CRS, ResourceTemplate () {
+					Name (_STA, 0x0F)
+					Name (_CRS, ResourceTemplate () {
 							FixedIO (0x0060, 0x01)
 							FixedIO (0x0064, 0x01)
 							IRQNoFlags () {1}
-						})
-						Return (CRS)
-					}
+					})
+
 				}
 				// Mouse
 				Device (PS2M) {
 					Name (_HID, EISAID("PNP0F13"))
-
-					Method (_STA, 0, NotSerialized) {
-						Return (0x0F)
-					}
-					Method (_CRS, 0, Serialized) {
-						Name (CRS, ResourceTemplate () {
-							IRQNoFlags () {12}
-						})
-						Return (CRS)
-					}
+					Name (_STA, 0x0F)
+					Name (_CRS, ResourceTemplate () {
+						IRQNoFlags () {12}
+					})
 				}
 			}
 		}
