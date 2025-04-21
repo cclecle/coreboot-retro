@@ -77,9 +77,9 @@ Device (SYSR)
 		IO (Decode16, 0x0370, 0x0370, 1, 0x02) // SIO
 
 		Memory32Fixed (ReadWrite, 0x0, 0xA0000)
-		Memory32Fixed (ReadWrite, 0x100000, 0xEFFFFF)
-		Memory32Fixed (ReadWrite, 0xE7000, 0x18FFF)
-		Memory32Fixed (ReadWrite, 0xFFFC0000, 0x3FFFF)
+		Memory32Fixed (ReadWrite, 0x100000, 0xF00000)
+		Memory32Fixed (ReadWrite, 0xE7000, 0x19000)
+		Memory32Fixed (ReadWrite, 0xFFFC0000, 0x40000)
 
 		// Unknown ones
 		IO (Decode16, 0x00E0, 0x00E0, 1, 0x10) // not sure... seems to be a lecacy range (kept for now, who knows !)
