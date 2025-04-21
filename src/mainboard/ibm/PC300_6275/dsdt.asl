@@ -129,7 +129,8 @@ DefinitionBlock (
 
 				// SIO config address advertise to OS
 				Name (_CRS, ResourceTemplate () {
-					FixedIO (0x0370, 0x02)
+					//FixedIO (0x0370, 0x02)
+					IO (Decode16, 0x0370, 0x0370, 1, 0x02)
 				})
 
 

@@ -78,7 +78,7 @@ Device (SYSR)
 		IO (Decode16, 0xFE00, 0xFE00, 1, 0x10)
 
 		// Unknown ones
-		IO (Decode16, 0x00E0, 0x00E0, 0x01, 0x10, ) // not sure... seems to be a lecacy range (kept for now, who knows !)
+		IO (Decode16, 0x00E0, 0x00E0, 1, 0x10) // not sure... seems to be a lecacy range (kept for now, who knows !)
 		//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // probably from p2b W83781D  hardware monitor, commented out
 	})
 }
