@@ -24,9 +24,11 @@ Device (PX43)
 	Name (_ADR, 0x00020003)
 	Name (_CRS, ResourceTemplate () {
 		/* PM register ports */
-		FixedIO (PM_IO_BASE,  0x40)
+		//FixedIO (PM_IO_BASE,  0x40)
+		IO (Decode16, PM_IO_BASE, PM_IO_BASE, 1, 0x40)
 		/* SMBus register ports */
-		FixedIO (SMBUS_IO_BASE, 0x10)
+		//FixedIO (SMBUS_IO_BASE, 0x10)
+		IO (Decode16, SMBUS_IO_BASE, SMBUS_IO_BASE, 1, 0x10)
 	})
 }
 
@@ -35,8 +37,10 @@ Device (PX41)
 {
 	Name (_ADR, 0x00020001)
 	Name (_CRS, ResourceTemplate () {
-		FixedIO (0xfff0, 0x08) // Primary IDE channel
-		FixedIO (0xfff8, 0x08) // Secondary IDE channel
+		//FixedIO (0xfff0, 0x08) // Primary IDE channel
+		//FixedIO (0xfff8, 0x08) // Secondary IDE channel
+		IO (Decode16, 0xfff0, 0xfff0, 1, 0x08)
+		IO (Decode16, 0xfff8, 0xfff8, 1, 0x08)
 	})
 }
 
