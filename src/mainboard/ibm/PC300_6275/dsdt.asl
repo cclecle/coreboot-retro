@@ -133,6 +133,14 @@ DefinitionBlock (
 			{
 				Name (_HID, EisaId("PNP0A05"))
 				Name (_UID, 0)
+
+				Method (_CRS)
+				{
+					/* Announce the used i/o ports to the OS */
+					Return (ResourceTemplate () {
+					IO (Decode16, 0x370, 0x370, 0x01, 0x02)
+				})
+	}
 				Device (PS2K)		// Keyboard
 				{
 					Name (_UID, 0)
@@ -147,7 +155,13 @@ DefinitionBlock (
 					{
 						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
 						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
-						IRQ (Edge, ActiveHigh, Exclusive) {1}
+						IRQNoFlags () {1}
+					})
+					Name (_PRS, ResourceTemplate()
+					{
+						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
+						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
+						IRQNoFlags () {1}
 					})
 				}
 				Device (PS2M)		// Mouse
@@ -161,9 +175,11 @@ DefinitionBlock (
 
 					Name (_CRS, ResourceTemplate()
 					{
-						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
-						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
-						IRQ (Edge, ActiveHigh, Exclusive) {12}
+						IRQNoFlags () {12}
+					})
+					Name (_PRS, ResourceTemplate()
+					{
+						IRQNoFlags () {12}
 					})
 				}
 			}

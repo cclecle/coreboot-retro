@@ -15,7 +15,7 @@ chip northbridge/intel/i440bx		# Northbridge
 	register "pirqd_routing" = "0x05" # IRQ5
 
 	register "serirq_enable" = "1"
-	register "serirq_continuous" = "0"
+	register "serirq_continuous" = "1"
 	register "gpo17_enable" = "1"   # CPU_STP
 	register "gpo18_enable" = "1"   # PCI_STP
 	register "gpo19_enable" = "1"   # ZZ
