@@ -70,16 +70,20 @@ Device (SYSR)
 		FixedIO (0x0074, 0x0C) // ok but missed some before
 		FixedIO (0x0091, 0x03) // missed 90 ? 92 masked but not written in the doc, and why not masking 94+ ?
 		FixedIO (0x00A2, 0x1E) // This probably mask APM Control and Status
-		//FixedIO (0x04D0, 0x02) // mask INTC-1 -2 Edge/Level control
-		IO (Decode16, 0x04D0, 0x04D0, 1, 0x02)
-		//FixedIO (0xFD00, 0x40) // PM IOs
-		IO (Decode16, 0xFD00, 0xFD00, 1, 0x40)
-		//FixedIO (0xFE00, 0x10) // SMBUS IOs
-		IO (Decode16, 0xFE00, 0xFE00, 1, 0x10)
+
+		IO (Decode16, 0x04D0, 0x04D0, 1, 0x02) // mask INTC-1 -2 Edge/Level control
+		IO (Decode16, 0xFD00, 0xFD00, 1, 0x40) // PM IOs
+		IO (Decode16, 0xFE00, 0xFE00, 1, 0x10) // SMBUS IOs
+		IO (Decode16, 0x0370, 0x0370, 1, 0x02) // SIO
+
+		Memory32Fixed (ReadWrite, 0x0, 0xA0000)
+		Memory32Fixed (ReadWrite, 0x100000, 0xEFFFFF)
+		Memory32Fixed (ReadWrite, 0xE7000, 0x18FFF)
+		Memory32Fixed (ReadWrite, 0xFFFC0000, 0x3FFFF)
 
 		// Unknown ones
 		IO (Decode16, 0x00E0, 0x00E0, 1, 0x10) // not sure... seems to be a lecacy range (kept for now, who knows !)
-		//IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // probably from p2b W83781D  hardware monitor, commented out
+		// IO (Decode16, 0x0294, 0x0294, 0x01, 0x04, ) // probably from p2b W83781D  hardware monitor, commented out
 	})
 }
 
@@ -100,7 +104,7 @@ Device (DMA1)
 {
 	Name (_HID, EisaId ("PNP0200"))
 	Name (_CRS, ResourceTemplate () {
-		DMA (Compatibility, BusMaster, Transfer8,) {4}
+		DMA (Compatibility, BusMaster, Transfer8) {4}
 		FixedIO (0x0000, 0x10)
 		FixedIO (0x0080, 0x11)
 		FixedIO (0x0094, 0x0C)

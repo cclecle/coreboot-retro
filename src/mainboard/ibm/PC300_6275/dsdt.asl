@@ -127,13 +127,6 @@ DefinitionBlock (
 				Name (_HID, EisaId("PNP0A05"))
 				Name (_UID, 0)
 
-				// SIO config address advertise to OS
-				Name (_CRS, ResourceTemplate () {
-					//FixedIO (0x0370, 0x02)
-					IO (Decode16, 0x0370, 0x0370, 1, 0x02)
-				})
-
-
 				// Floppy controller
 				Device (FDC0) {
 					Name (_HID, EISAID ("PNP0700"))
@@ -144,6 +137,7 @@ DefinitionBlock (
 						DMA (Compatibility, NotBusMaster, Transfer8) {2}
 					})
 				}
+
 				// Keyboard
 				Device (PS2K) {
 					Name (_HID, EISAID("PNP0303"))
@@ -156,6 +150,7 @@ DefinitionBlock (
 					})
 
 				}
+
 				// Mouse
 				Device (PS2M) {
 					Name (_HID, EISAID("PNP0F13"))
