@@ -134,13 +134,14 @@ DefinitionBlock (
 				Name (_HID, EisaId("PNP0A05"))
 				Name (_UID, 0)
 
-				Method (_CRS)
+				Method (_CRS, 0, NotSerialized)
 				{
-					/* Announce the used i/o ports to the OS */
-					Return (ResourceTemplate () {
-					IO (Decode16, 0x370, 0x370, 0x01, 0x02)
-				})
-	}
+					Name (BUF1, ResourceTemplate ()
+					{
+						IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, )
+					})
+					Return (BUF1)
+				}
 				Device (PS2K)		// Keyboard
 				{
 					Name (_UID, 0)
@@ -153,20 +154,13 @@ DefinitionBlock (
 
 					Name (_CRS, ResourceTemplate()
 					{
-						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
-						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
-						IRQNoFlags () {1}
-					})
-					Name (_PRS, ResourceTemplate()
-					{
-						IO (Decode16, 0x60, 0x60, 0x01, 0x01)
-						IO (Decode16, 0x64, 0x64, 0x01, 0x01)
+						FixedIO (Decode16, 0x60, 0x60, 0x01, 0x01)
+						FixedIO (Decode16, 0x64, 0x64, 0x01, 0x01)
 						IRQNoFlags () {1}
 					})
 				}
 				Device (PS2M)		// Mouse
 				{
-					Name (_UID, 0)
 					Name (_HID, EISAID("PNP0f13"))
 
 					Method (_STA, 0, NotSerialized) {
@@ -174,10 +168,6 @@ DefinitionBlock (
 					}
 
 					Name (_CRS, ResourceTemplate()
-					{
-						IRQNoFlags () {12}
-					})
-					Name (_PRS, ResourceTemplate()
 					{
 						IRQNoFlags () {12}
 					})

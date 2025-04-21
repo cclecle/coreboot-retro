@@ -83,7 +83,7 @@ Device (SYSR)
 			IO (Decode16, 0x04D0, 0x04D0, 0x01, 0x02, ) // mask INTC-1 -2 Edge/Level control
 			IO (Decode16, 0xFD00, 0xFD00, 0x01, 0x40, ) // PM IOs
 			IO (Decode16, 0xFE00, 0xFE00, 0x01, 0x10, ) // SMBUS IOs
-			IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, ) // ?? was 3F0, assuming its super IO ? So switched to 3F0
+			//IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, ) // ?? was 3F0, assuming its super IO ? So switched to 3F0
 		})
 		Return (BUF1)
 	}
