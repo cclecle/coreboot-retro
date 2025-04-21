@@ -19,7 +19,7 @@ Device (NB)
 }
 
 Method(_CRS, 0) {
-	Name(TMP, ResourceTemplate() {
+	TMP = ResourceTemplate() {
 		WordBusNumber(ResourceProducer, MinFixed, MaxFixed, PosDecode,
 			0x0000,             // Granularity
 			0x0000,             // Range Minimum
@@ -48,7 +48,7 @@ Method(_CRS, 0) {
 
 		/* memory space for PCI BARs below 4GB */
 		Memory32Fixed(ReadOnly, 0x00000000, 0x00000000, MMIO)
-	})
+	}
 	CreateDWordField(TMP, MMIO._BAS, MM1B)
 	CreateDWordField(TMP, MMIO._LEN, MM1L)
 	/*
