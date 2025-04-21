@@ -11,8 +11,8 @@ DefinitionBlock (
 	OEM_ID,
 	ACPI_TABLE_CREATOR,
 	1
-	)
-{
+	) {
+
 	#include <acpi/dsdt_top.asl>
 	/* \_SB scope defining the main processor is generated in SSDT. */
 
@@ -40,8 +40,7 @@ DefinitionBlock (
 	Name (\_S5, Package () { 0x00, 0x00, 0x00, 0x00})
 
 	OperationRegion (GPOB, SystemIO, DEFAULT_PMBASE+DEVCTL, 0x10)
-	Field (GPOB, ByteAcc, NoLock, Preserve)
-	{
+	Field (GPOB, ByteAcc, NoLock, Preserve) {
 		Offset (0x03),
 		TO12,   1, /* Device trap 12 */
 		Offset (0x08),
@@ -55,11 +54,9 @@ DefinitionBlock (
 	}
 
 	/* Prepare To Sleep, Arg0 is target S-state */
-	Method (\_PTS, 1, NotSerialized)
-	{
+	Method (\_PTS, 1, NotSerialized) {
 		/* Disable fan, blink power LED, if not turning off */
-		If (Arg0 != 0x05)
-		{
+		If (Arg0 != 0x05) {
 		    FANM = 0
 		    PLED = 0
 		}
@@ -70,8 +67,7 @@ DefinitionBlock (
 		DBG0 = Arg0 | 0xF0
 	}
 
-	Method (\_WAK, 1, NotSerialized)
-	{
+	Method (\_WAK, 1, NotSerialized) {
 		/* Re-enable fan, stop power led blinking */
 		FANM = 1
 		PLED = 1
@@ -80,8 +76,7 @@ DefinitionBlock (
 	}
 
 	/* Root of the bus hierarchy */
-	Scope (\_SB)
-	{
+	Scope (\_SB) {
 		#include <southbridge/intel/i82371eb/acpi/intx.asl>
 
 		PCI_INTX_DEV(LNKA, \_SB.PCI0.PX40.PIRA, 1)
@@ -90,8 +85,7 @@ DefinitionBlock (
 		PCI_INTX_DEV(LNKD, \_SB.PCI0.PX40.PIRD, 4)
 
 		/* Top PCI device */
-		Device (PCI0)
-		{
+		Device (PCI0) {
 			Name (_HID, EisaId ("PNP0A03"))
 			Name (_UID, 0x00)
 			Name (_BBN, 0x00)
@@ -129,64 +123,73 @@ DefinitionBlock (
 			#include <southbridge/intel/i82371eb/acpi/isabridge.asl>
 			#include <mainboard/ibm/PC300_6275/i82371eb.asl>
 
-			Device(SIO)
-			{
+			Device(SIO) {
 				Name (_HID, EisaId("PNP0A05"))
 				Name (_UID, 0)
 
-				Method (_CRS, 0, NotSerialized)
-				{
-					Name (BUF1, ResourceTemplate ()
-					{
-						IO (Decode16, 0x0370, 0x0370, 0x01, 0x02, )
+				// SIO config address advertise to OS
+				Method (_CRS) {
+					/* Announce the used i/o ports to the OS */
+					Return (ResourceTemplate () {
+						FixedIO (0x0370, 0x02)
 					})
-					Return (BUF1)
 				}
-				Device (PS2K)		// Keyboard
-				{
-					Name (_UID, 0)
+
+				// Floppy controller
+				Device (FDC0) {
+					Name (_HID, EISAID ("PNP0700"))
+
+					Method (_STA, 0, NotSerialized) {
+						Return (0x0F)
+					}
+					Name (_CRS, ResourceTemplate() {
+						FixedIO (0x03F0, 0x06)
+						IRQNoFlags () {6}
+						DMA (Compatibility, NotBusMaster, Transfer8) {2}
+					})
+				}
+				// Keyboard
+				Device (PS2K) {
 					Name (_HID, EISAID("PNP0303"))
 					Name (_CID, EISAID("PNP030B"))
 
 					Method (_STA, 0, NotSerialized) {
 						Return (0x0F)
 					}
-
-					Name (_CRS, ResourceTemplate()
-					{
-						FixedIO (0x60, 0x01)
-						FixedIO (0x64, 0x01)
-						IRQNoFlags () {1}
-					})
+					Method (_CRS, 0, Serialized) {
+						Name (CRS, ResourceTemplate () {
+							FixedIO (0x0060, 0x01)
+							FixedIO (0x0064, 0x01)
+							IRQNoFlags () {1}
+						})
+						Return (CRS)
+					}
 				}
-				Device (PS2M)		// Mouse
-				{
-					Name (_HID, EISAID("PNP0f13"))
+				// Mouse
+				Device (PS2M) {
+					Name (_HID, EISAID("PNP0F13"))
 
 					Method (_STA, 0, NotSerialized) {
 						Return (0x0F)
 					}
-
-					Name (_CRS, ResourceTemplate()
-					{
-						IRQNoFlags () {12}
-					})
+					Method (_CRS, 0, Serialized) {
+						Name (CRS, ResourceTemplate () {
+							IRQNoFlags () {12}
+						})
+						Return (CRS)
+					}
 				}
 			}
 		}
 	}
 
 	/* ACPI Message */
-	Scope (\_SI)
-	{
-		Method (_MSG, 1, NotSerialized)
-		{
-			If (Arg0 == 0)
-			{
+	Scope (\_SI) {
+		Method (_MSG, 1, NotSerialized) {
+			If (Arg0 == 0) {
 				MSG0 = 1
 			}
-			Else
-			{
+			Else {
 				MSG0 = 0
 			}
 		}
