@@ -19,7 +19,7 @@ Device (NB)
 }
 
 Method(_CRS, 0) {
-	TMP = ResourceTemplate() {
+	Local1 = ResourceTemplate() {
 		WordBusNumber(ResourceProducer, MinFixed, MaxFixed, PosDecode,
 			0x0000,             // Granularity
 			0x0000,             // Range Minimum
@@ -49,8 +49,8 @@ Method(_CRS, 0) {
 		/* memory space for PCI BARs below 4GB */
 		Memory32Fixed(ReadOnly, 0x00000000, 0x00000000, MMIO)
 	}
-	CreateDWordField(TMP, MMIO._BAS, MM1B)
-	CreateDWordField(TMP, MMIO._LEN, MM1L)
+	CreateDWordField(Local1, MMIO._BAS, MM1B)
+	CreateDWordField(Local1, MMIO._LEN, MM1L)
 	/*
 	 * Declare memory between TOM1 and 4GB as available
 	 * for PCI MMIO.
@@ -65,5 +65,5 @@ Method(_CRS, 0) {
 	Local0 -= CONFIG_ROM_SIZE
 	MM1L = Local0 - MM1B
 
-	Return(TMP)
+	Return(Local1)
 }
