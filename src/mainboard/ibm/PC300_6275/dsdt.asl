@@ -154,8 +154,8 @@ DefinitionBlock (
 
 					Name (_CRS, ResourceTemplate()
 					{
-						FixedIO (Decode16, 0x60, 0x60, 0x01, 0x01)
-						FixedIO (Decode16, 0x64, 0x64, 0x01, 0x01)
+						FixedIO (0x60, 0x01)
+						FixedIO (0x64, 0x01)
 						IRQNoFlags () {1}
 					})
 				}
