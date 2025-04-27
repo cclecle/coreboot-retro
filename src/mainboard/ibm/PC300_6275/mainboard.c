@@ -11,10 +11,11 @@
  */
 
 
-static void mainboard_init(void *chip_info)
+static void mainboard_final(void *chip_info)
 {
 	u8 reg8;
 	printk(BIOS_INFO, "300GL mainboard init\n");
+	return;
 
 	outb(0x55, 0x370); // enter SIO config mode
 
@@ -42,5 +43,5 @@ static void mainboard_init(void *chip_info)
 
 
 struct chip_operations mainboard_ops = {
-	.init = mainboard_init
+	.final = mainboard_final
 };
